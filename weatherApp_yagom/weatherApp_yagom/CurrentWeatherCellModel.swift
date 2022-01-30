@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct SimpleCurrentWeather {
+struct CurrentWeatherCellModel {
   var name: String
   var currentTemperature: Double
   var currentHumid: Double
