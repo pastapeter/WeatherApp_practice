@@ -28,6 +28,16 @@ final class WeatherMainViewController: UIViewController {
 
   //MARK: - Private
   private var datasource: [CurrentWeatherCellModel] = []
+  private let viewModel: WeatherMainViewModel
+  
+  public init(viewModel: WeatherMainViewModel) {
+    self.viewModel = viewModel
+    super.init(nibName: nil, bundle: nil)
+  }
+  
+  required public init?(coder: NSCoder) {
+    fatalError("이 뷰컨트롤러는 코드베이스입니다.")
+  }
   
   private func setTableView() {
     tableView.dataSource = self
@@ -37,6 +47,8 @@ final class WeatherMainViewController: UIViewController {
     tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
     tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
     tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+    
+    
   }
 
 }
