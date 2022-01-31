@@ -10,14 +10,15 @@ import UIKit
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
   var window: UIWindow?
-  let injectionContainer = WeatherAppDependencyContainer()
+  let injectionContainer = WeatherMainDependencyContainer()
 
   func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
     
     guard let windowScene = (scene as? UIWindowScene) else { return }
     let weatherMainVC = injectionContainer.makeWeatherMainViewController()
+    let navigationController = UINavigationController(rootViewController: weatherMainVC)
     let window = UIWindow(windowScene: windowScene)
-    window.rootViewController = weatherMainVC
+    window.rootViewController = navigationController
     window.makeKeyAndVisible()
     self.window = window
   }
