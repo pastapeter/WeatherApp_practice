@@ -13,7 +13,7 @@ public struct MainWeatherInfo: Codable {
   let tempMin: Double
   let tempMax: Double
   let pressure: Int
-  let humidity: Int
+  let humidity: Double
   let seaLevel: Int?
   let groundLevel: Int?
 }
@@ -36,7 +36,7 @@ extension MainWeatherInfo {
     tempMin = (try? container.decode(Double.self, forKey: .tempMin)) ?? 2000.0
     tempMax = (try? container.decode(Double.self, forKey: .tempMax)) ?? 2000.0
     pressure = (try? container.decode(Int.self, forKey: .pressure)) ?? 2000
-    humidity = (try? container.decode(Int.self, forKey: .humidity)) ?? 2000
+    humidity = (try? container.decode(Double.self, forKey: .humidity)) ?? 2000.0
     seaLevel = try? container.decode(Int.self, forKey: .seaLevel)
     groundLevel = try? container.decode(Int.self, forKey: .groundLevel)
   }
