@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct ApiInfo {
+public struct APIInfo {
   
   private init() {}
   

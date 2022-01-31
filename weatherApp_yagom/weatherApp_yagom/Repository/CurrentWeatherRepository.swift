@@ -8,7 +8,7 @@
 import Foundation
 
 public protocol CurrentWeatherRepository: AnyObject {
-  func currentWeather(in city: String, completion: @escaping(CurrentWeather)->())
-  func weatherIcon(iconName: String, completion: @escaping(String)->())
+  func currentWeather(in city: String, completion: @escaping(CurrentWeather)->Void)
+  func weatherIcon(iconName: String, completion: @escaping(String)-> Void)
 }
 
