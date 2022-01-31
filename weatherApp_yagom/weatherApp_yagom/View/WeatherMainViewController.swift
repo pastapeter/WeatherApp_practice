@@ -24,14 +24,29 @@ final class WeatherMainViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     setTableView()
+    viewModel.updatedUI = { [weak self] in
+      guard let self = self else {return}
+      DispatchQueue.main.async {
+        self.datasource = self.viewModel.datasource
+        self.tableView.reloadData()
+      }
+    }
+  }
+  
+  override func viewWillAppear(_ animated: Bool) {
+    viewModel.restartSync()
   }
 
   //MARK: - Private
   private var datasource: [CurrentWeatherCellModel] = []
   private let viewModel: WeatherMainViewModel
   
-  public init(viewModel: WeatherMainViewModel) {
+  //factory
+  private let makeWeatherDetailVCFactory: WeatherDetailViewControllerFactory
+  
+  public init(viewModel: WeatherMainViewModel, weatherDetailViewControllerFactory: WeatherDetailViewControllerFactory) {
     self.viewModel = viewModel
+    self.makeWeatherDetailVCFactory = weatherDetailViewControllerFactory
     super.init(nibName: nil, bundle: nil)
   }
   
@@ -48,7 +63,6 @@ final class WeatherMainViewController: UIViewController {
     tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
     tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
     
-    
   }
 
 }
@@ -57,12 +71,12 @@ final class WeatherMainViewController: UIViewController {
 
 extension WeatherMainViewController: UITableViewDataSource {
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return 10
-//    return datasource.count
+    return datasource.count
   }
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     guard let cell = tableView.dequeueReusableCell(withIdentifier: WeatherMainTableViewCell.identifier, for: indexPath) as? WeatherMainTableViewCell else {return WeatherMainTableViewCell()}
+    cell.bind(cellModel: datasource[indexPath.row])
     return cell
   }
 
@@ -70,6 +84,10 @@ extension WeatherMainViewController: UITableViewDataSource {
 //MARK: - Tableview delegate
 
 extension WeatherMainViewController: UITableViewDelegate {
-  
+  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    viewModel.stopSync()
+    let vc = makeWeatherDetailVCFactory.makeWeatherDetailViewController()
+    self.navigationController?.pushViewController(vc, animated: true)
+  }
 }
 

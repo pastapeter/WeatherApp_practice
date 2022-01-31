@@ -7,10 +7,10 @@
 
 import Foundation
 
-public class WeatherAppDependencyContainer {
+public class WeatherMainDependencyContainer {
   
   //상태저장의존성
-  let sharedWeatherSessionRepository: CurrentWeatherRepository
+  let sharedWeatherRepository: CurrentWeatherRepository
   let sharedWeatherMainViewModel: WeatherMainViewModel
   
   public init() {
@@ -28,18 +28,29 @@ public class WeatherAppDependencyContainer {
     }
     
     self.sharedWeatherMainViewModel = makeWeatherMainViewModel()
-    self.sharedWeatherSessionRepository = makeCurrentWeatherRepository()
+    self.sharedWeatherRepository = makeCurrentWeatherRepository()
   }
   
   // WeatherMainViewController
   func makeWeatherMainViewController() -> WeatherMainViewController {
-    return WeatherMainViewController(viewModel: sharedWeatherMainViewModel)
+    
+    return WeatherMainViewController(viewModel: sharedWeatherMainViewModel, weatherDetailViewControllerFactory: self )
   }
   
   // WeatherDetail
   func makeWeatherDetailViewController() -> WeatherDetailViewController {
-    let dependencyContainer = WeatherDetailDependencyContainer(appDependencyContainer: self)
+    let dependencyContainer = makeWeatherDetailDependencyContainer()
     return dependencyContainer.makeWeatherDetailViewController()
   }
   
+  func makeWeatherDetailDependencyContainer() -> WeatherDetailDependencyContainer {
+    return WeatherDetailDependencyContainer(appDependencyContainer: self)
+  }
+
+}
+
+extension WeatherMainDependencyContainer: WeatherDetailViewControllerFactory { }
+
+protocol WeatherDetailViewControllerFactory {
+  func makeWeatherDetailViewController() -> WeatherDetailViewController
 }
