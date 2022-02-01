@@ -27,6 +27,19 @@ final class WeatherDetailDependencyContainer {
   }
   
   func makeWeatherDetailViewController() -> WeatherDetailViewController {
-    return WeatherDetailViewController(viewModel: sharedWeatherDetailViewModel)
+    return WeatherDetailViewController(viewModel: sharedWeatherDetailViewModel, futureWeatherViewControllerFactory: self)
   }
+  
+  // FutureWeather
+  func makeFutureWeatherViewController() -> FutureWeatherViewController {
+    let dependencyContainer = FutureWeatherDependencyContainer(appDependencyContainer: self, cityName: sharedWeatherDetailViewModel.cityName)
+    return dependencyContainer.makeFutureWeatherViewController()
+  }
+  
+}
+
+extension WeatherDetailDependencyContainer: FutureWeatherViewControllerFactory {}
+
+protocol FutureWeatherViewControllerFactory {
+  func makeFutureWeatherViewController() -> FutureWeatherViewController
 }

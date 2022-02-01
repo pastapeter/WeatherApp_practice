@@ -22,8 +22,9 @@ class WeatherDetailViewController: UIViewController {
   
   //MARK: - init
 
-  public init(viewModel: WeatherDetailViewModel) {
+  public init(viewModel: WeatherDetailViewModel, futureWeatherViewControllerFactory: FutureWeatherViewControllerFactory) {
     self.viewModel = viewModel
+    self.futureWeatherViewControllerFactory = futureWeatherViewControllerFactory
     super.init(nibName: nil, bundle: nil)
     
     self.viewModel.updateUI = {
@@ -66,6 +67,7 @@ class WeatherDetailViewController: UIViewController {
   //MARK: - Private
   
   private var viewModel: WeatherDetailViewModel
+  private var futureWeatherViewControllerFactory: FutureWeatherViewControllerFactory
   
   private func setupBarbutton() {
     navigationItem.rightBarButtonItem = futureWeatherButton
@@ -90,7 +92,8 @@ class WeatherDetailViewController: UIViewController {
   
   @objc private func gotoFutureWeatherVC(_ sender: Any) {
     viewModel.stopSync()
-    self.present(FutureWeatherViewController(), animated: true, completion: nil)
+    let vc = futureWeatherViewControllerFactory.makeFutureWeatherViewController()
+    self.present(vc, animated: true, completion: nil)
   }
   
 }
