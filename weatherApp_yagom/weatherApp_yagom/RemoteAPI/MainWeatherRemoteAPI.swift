@@ -37,10 +37,10 @@ final class MainWeatherRemoteAPI: WeatherRemoteAPI  {
     
   }
   
-  //MARK: - private
-  
   public init () {
   }
+  
+  //MARK: - private
   
   private let key = APIInfo.apiKey
   private let baseUrl = APIInfo.baseUrl
