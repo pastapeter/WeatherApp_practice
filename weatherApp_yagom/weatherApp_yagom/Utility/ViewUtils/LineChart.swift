@@ -7,27 +7,12 @@
 
 import UIKit
 
-struct PointEntry {
-  let value: Double
-  let label: String
-}
-
-extension PointEntry: Comparable {
-  static func < (lhs: PointEntry, rhs: PointEntry) -> Bool {
-    return lhs.value < rhs.value
-  }
-
-  static func == (lhs: PointEntry, rhs: PointEntry) -> Bool {
-    return lhs.value == rhs.value
-  }
-
-}
-
 class LineChart: UIView {
   
-  private var columnStardardLabel = UILabel()
+  // 세로축의 기준을 나타내는 라벨
+  var columnStardardLabel = UILabel()
   
-  //각 포인트 마다 갭?
+  //가로축의 눈금 갭
   private let lineGap: CGFloat = 80.0
   
   // 차트 상단에 남는 공간
@@ -39,18 +24,21 @@ class LineChart: UIView {
   // 가장 높은 줄은 차트의 가장 높은 값보다 10% 커야한다.
   private let topHorizontalLine: CGFloat = 1.1
   
-  var dataEntries: [PointEntry]? {
+  // 최고기온 데이터 앤트리
+  var maxTempDataEntries: [PointEntry]? {
     didSet {
       self.setNeedsLayout()
     }
   }
   
+  //습도 데이터앤트리
   var humidDataEntries: [PointEntry]? {
     didSet {
       self.setNeedsLayout()
     }
   }
   
+  // 최저온도 데이터앤트리
   var minTempDataEntries: [PointEntry]? {
     didSet {
       self.setNeedsLayout()
@@ -65,9 +53,10 @@ class LineChart: UIView {
   // 메인레이어와 각각의 데이터 엔트리의 라벨을 가짐
   private let scrollView: UIScrollView = UIScrollView()
   
-  // horizontal Line
+  // 그리드
   private let gridLayer: CALayer = CALayer()
   
+  // 데이터 엔트리를 데이터 포인터로 변경할 수 있음 -> 그래프의 좌표
   private var dataPoints: [CGPoint]?
   private var dataPointsList: [[CGPoint]] = []
   private var humidDataPoints: [CGPoint]?
@@ -112,7 +101,7 @@ class LineChart: UIView {
     scrollView.frame = CGRect(x: 50, y: 0,
                               width: self.frame.size.width,
                               height: self.frame.size.height)
-    if let dataEntries = dataEntries {
+    if let dataEntries = maxTempDataEntries {
       scrollView.contentSize = CGSize(width: CGFloat(dataEntries.count) * lineGap, height: self.frame.size.height)
       mainLayer.frame = CGRect(x: 0, y: 0, width: CGFloat(dataEntries.count) * lineGap, height: self.frame.size.height)
       dataLayer.frame = CGRect(x: 0, y: topSpace, width: mainLayer.frame.width, height: mainLayer.frame.height - topSpace - bottomSpace)
@@ -190,7 +179,7 @@ class LineChart: UIView {
   
   //가로축 + Label
   private func drawLabels() {
-    if let dataEntries = dataEntries, dataEntries.count > 0 {
+    if let dataEntries = maxTempDataEntries, dataEntries.count > 0 {
       for i in 0..<dataEntries.count {
         let textLayer = CATextLayer()
         textLayer.frame = CGRect(x: lineGap*CGFloat(i) - lineGap/2 + 40, y: mainLayer.frame.height - bottomSpace/2 - 8, width: lineGap, height: 16)
@@ -206,9 +195,8 @@ class LineChart: UIView {
     }
   }
   
-  // 그리드 라인 그리기
   private func drawHorizontalLines() {
-    guard let dataEntries = dataEntries, let minTempDataEntries = minTempDataEntries, let humidDataEntries = humidDataEntries else {
+    guard let dataEntries = maxTempDataEntries, let minTempDataEntries = minTempDataEntries, let humidDataEntries = humidDataEntries else {
       return
     }
     
@@ -218,10 +206,12 @@ class LineChart: UIView {
     } else if dataEntries.count >= 4 {
       gridValues = [0, 0.25, 0.5, 0.75, 1]
     }
+    
     if let gridValues = gridValues {
       for value in gridValues {
         let height = value * gridLayer.frame.size.height
-
+        
+        // 그리드 라인 그리기
         let path = UIBezierPath()
         path.move(to: CGPoint(x:0, y: height))
         path.addLine(to: CGPoint(x: gridLayer.frame.size.width, y: height))
@@ -237,6 +227,7 @@ class LineChart: UIView {
 
         gridLayer.addSublayer(lineLayer)
         
+        // 세로축 만들기
         var lineValue: (Double, Double) = (0,0)
         if let maxInTempMax = dataEntries.max()?.value,
            let minInTempMax = dataEntries.min()?.value, let maxInTempMin = minTempDataEntries.max()?.value, let minInTempMin = minTempDataEntries.min()?.value {
