@@ -25,6 +25,23 @@ class WeatherDetailViewController: UIViewController {
   public init(viewModel: WeatherDetailViewModel) {
     self.viewModel = viewModel
     super.init(nibName: nil, bundle: nil)
+    
+    self.viewModel.updateUI = {
+      DispatchQueue.main.async { [weak self] in
+        guard let self = self else {return}
+        self.datasource[0] = viewModel.cityName
+  //      datasource[1] =
+        self.datasource[2] = "현재온도: \(viewModel.weatherInfo.temp)"
+        self.datasource[3] = "체감온도: \(viewModel.weatherInfo.feelsLike)"
+        self.datasource[4] = "현재습도: \(viewModel.weatherInfo.humidity)%"
+        self.datasource[5] = "기압: \(viewModel.weatherInfo.pressure)"
+        self.datasource[6] = "최고온도: \(viewModel.weatherInfo.tempMax)"
+        self.datasource[7] = "최저기온: \(viewModel.weatherInfo.tempMin)"
+        self.datasource[8] = "풍속: \(viewModel.weatherInfo.windSpeed)"
+        self.datasource[9] = "오늘의 날씨는 \(viewModel.weatherInfo.description)"
+        self.tableView.reloadData()
+      }
+    }
   }
   
   required init?(coder: NSCoder) {
@@ -39,6 +56,11 @@ class WeatherDetailViewController: UIViewController {
     setupBarbutton()
     setupTableView()
     // Do any additional setup after loading the view.
+  }
+  
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
+    viewModel.restartSync()
   }
   
   //MARK: - Private
@@ -67,6 +89,7 @@ class WeatherDetailViewController: UIViewController {
   }
   
   @objc private func gotoFutureWeatherVC(_ sender: Any) {
+    viewModel.stopSync()
     self.present(FutureWeatherViewController(), animated: true, completion: nil)
   }
   
@@ -85,15 +108,13 @@ extension WeatherDetailViewController: UITableViewDataSource {
     
     if indexPath.row == 1 { //icon
       cell.iconImageView.image = UIImage(systemName: "cloud.sun")
-      cell.iconImageView.heightAnchor.constraint(equalToConstant: 100).isActive = true
       cell.stackView.alignment = .center
+      cell.iconImageView.isHidden = false
       cell.titleLabel.text = nil
-    } else { //
-      cell.iconImageView.image = nil
+    } else {
+      cell.iconImageView.isHidden = true
       cell.titleLabel.text = datasource[indexPath.row]
-      if indexPath.row != 0 {
-        cell.titleLabel.font = .preferredFont(forTextStyle: .body)
-      }
+      cell.stackView.alignment = .leading
     }
     
     return cell

@@ -12,7 +12,8 @@ class WeatherDetailTableViewCell: UITableViewCell {
   lazy var titleLabel: UILabel = {
     let label = UILabel()
     label.translatesAutoresizingMaskIntoConstraints = false
-    label.font = UIFont.preferredFont(forTextStyle: .largeTitle)
+    label.font = UIFont.preferredFont(forTextStyle: .body)
+    label.numberOfLines = 0
     label.text = "도시이름 : "
     return label
   }()
@@ -20,6 +21,7 @@ class WeatherDetailTableViewCell: UITableViewCell {
   lazy var iconImageView: UIImageView = {
     let imageView = UIImageView()
     imageView.contentMode = .scaleAspectFill
+    imageView.heightAnchor.constraint(equalToConstant: 100).isActive = true
     imageView.translatesAutoresizingMaskIntoConstraints = false
     return imageView
   }()
@@ -57,7 +59,5 @@ class WeatherDetailTableViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
-  
-  
 
 }
