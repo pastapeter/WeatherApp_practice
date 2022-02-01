@@ -19,8 +19,8 @@
                     <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="dw4-54-nvC">
                         <rect key="frame" x="10" y="0.0" width="338" height="107"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" image="cloud.sun" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="kda-Y3-LSg">
-                                <rect key="frame" x="0.0" y="13" width="81" height="79"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" image="cloud.heavyrain" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="kda-Y3-LSg">
+                                <rect key="frame" x="0.0" y="13.5" width="80" height="81.5"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="kda-Y3-LSg" secondAttribute="height" multiplier="1:1" id="Cmp-mz-IyY"/>
                                     <constraint firstAttribute="height" constant="80" id="eku-db-rkq"/>
@@ -70,6 +70,6 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="cloud.sun" catalog="system" width="128" height="95"/>
+        <image name="cloud.heavyrain" catalog="system" width="125" height="128"/>
     </resources>
 </document>
