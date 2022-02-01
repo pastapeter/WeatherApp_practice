@@ -9,7 +9,7 @@ import Foundation
 
 public struct Forecast: Codable {
   let main: MainWeatherInfo
-  let weather: Weather
+  let weather: [Weather]
   let wind: Wind
   let date: String
 }
