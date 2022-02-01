@@ -47,6 +47,7 @@ class FutureWeatherViewController: UIViewController {
   }
   
   @objc private func dismissVC(_ sender: Any) {
+    viewModel.stopSync()
     self.dismiss(animated: true, completion: nil)
   }
   
