@@ -38,13 +38,13 @@ public class WeatherMainDependencyContainer {
   }
   
   // WeatherDetail
-  func makeWeatherDetailViewController() -> WeatherDetailViewController {
-    let dependencyContainer = makeWeatherDetailDependencyContainer()
+  func makeWeatherDetailViewController(cityName: String) -> WeatherDetailViewController {
+    let dependencyContainer = makeWeatherDetailDependencyContainer(cityName: cityName)
     return dependencyContainer.makeWeatherDetailViewController()
   }
   
-  func makeWeatherDetailDependencyContainer() -> WeatherDetailDependencyContainer {
-    return WeatherDetailDependencyContainer(appDependencyContainer: self)
+  func makeWeatherDetailDependencyContainer(cityName: String) -> WeatherDetailDependencyContainer {
+    return WeatherDetailDependencyContainer(appDependencyContainer: self, cityName: cityName)
   }
 
 }
@@ -52,5 +52,5 @@ public class WeatherMainDependencyContainer {
 extension WeatherMainDependencyContainer: WeatherDetailViewControllerFactory { }
 
 protocol WeatherDetailViewControllerFactory {
-  func makeWeatherDetailViewController() -> WeatherDetailViewController
+  func makeWeatherDetailViewController(cityName: String) -> WeatherDetailViewController
 }
