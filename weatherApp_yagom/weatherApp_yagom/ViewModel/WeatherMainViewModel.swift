@@ -56,8 +56,10 @@ final class WeatherMainViewModel {
       guard let self = self else {return }
       print("*********** START ***********")
       var tempList: [CurrentWeather] = []
-      self.cityList.forEach {
-        self.respository.currentWeather(in: $0) { weatherInfo in
+      self.cityList.enumerated().forEach { (index, city) in
+        self.respository.currentWeather(in: city) { weatherInfo in
+          var weatherInfo = weatherInfo
+          weatherInfo.name = city
           tempList.append(weatherInfo)
           if tempList.count == self.cityList.count {
             self.dataList = tempList

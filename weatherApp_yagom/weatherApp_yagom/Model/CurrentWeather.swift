@@ -12,7 +12,7 @@ public struct CurrentWeather: Codable {
   let main: MainWeatherInfo?
   let wind: Wind?
   let id: Int
-  let name: String
+  var name: String
 }
 
 extension CurrentWeather {
