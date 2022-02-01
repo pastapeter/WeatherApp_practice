@@ -12,6 +12,7 @@ final class WeatherDetailViewModel {
   public init(weatherRepository: CurrentWeatherRepository, cityName: String) {
     self.weatherRepository = weatherRepository
     self.cityName = cityName
+    getWeather()
     syncWeather()
   }
   
@@ -31,6 +32,7 @@ final class WeatherDetailViewModel {
   
   func restartSync() {
     if let timer = timer, timer.isValid == false {
+      getWeather()
       syncWeather()
     }
   }
@@ -41,18 +43,23 @@ final class WeatherDetailViewModel {
   private let weatherRepository: CurrentWeatherRepository
   private var timer: Timer?
   
+  private func getWeather() {
+    self.weatherRepository.currentWeather(in: cityName) { [weak self] weather in
+      guard let self = self else {return}
+      guard let main = weather.main, let wind = weather.wind else {return}
+      self.weatherInfo = DetailWeatherInfo(temp: main.temp, feelsLike: main.feelsLikeTemp,
+                                           tempMin: main.tempMin, tempMax: main.tempMax,
+                                           pressure: main.pressure, humidity: main.humidity,
+                                           windSpeed: wind.speed ?? -100,
+                                           description: weather.weather[0].description)
+    }
+  }
+  
   private func syncWeather() {
     timer = Timer.scheduledTimer(withTimeInterval: 3, repeats: true) { [weak self] _ in
       guard let self = self else {return}
       print("*********** WeatherDetailVM_START ***********")
-      self.weatherRepository.currentWeather(in: self.cityName) { weather in
-        guard let main = weather.main, let wind = weather.wind else {return}
-        self.weatherInfo = DetailWeatherInfo(temp: main.temp, feelsLike: main.feelsLikeTemp,
-                                             tempMin: main.tempMin, tempMax: main.tempMax,
-                                             pressure: main.pressure, humidity: main.humidity,
-                                             windSpeed: wind.speed ?? -100,
-                                             description: weather.weather[0].description)
-      }
+      self.getWeather()
     }
   }
   

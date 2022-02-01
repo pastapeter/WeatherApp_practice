@@ -22,6 +22,7 @@ final class WeatherMainViewModel {
     cityList = CityName.allCases.map {
       $0.rawValue
     }
+    getWeather()
     syncWeather()
   }
   
@@ -33,6 +34,7 @@ final class WeatherMainViewModel {
   
   func restartSync() {
     if let timer = timer, timer.isValid == false {
+      getWeather()
       syncWeather()
     }
   }
@@ -51,21 +53,26 @@ final class WeatherMainViewModel {
   private var cityList: [String] = []
   private var timer: Timer?
   
+  private func getWeather() {
+    var tempList: [CurrentWeather] = []
+    self.cityList.enumerated().forEach { (index, city) in
+      self.respository.currentWeather(in: city) { [weak self] weatherInfo in
+        guard let self = self else { return }
+        var weatherInfo = weatherInfo
+        weatherInfo.name = city
+        tempList.append(weatherInfo)
+        if tempList.count == self.cityList.count {
+          self.dataList = tempList
+        }
+      }
+    }
+  }
+  
   private func syncWeather() {
     timer = Timer.scheduledTimer(withTimeInterval: 3, repeats: true) { [weak self] _ in
       guard let self = self else {return }
       print("*********** START ***********")
-      var tempList: [CurrentWeather] = []
-      self.cityList.enumerated().forEach { (index, city) in
-        self.respository.currentWeather(in: city) { weatherInfo in
-          var weatherInfo = weatherInfo
-          weatherInfo.name = city
-          tempList.append(weatherInfo)
-          if tempList.count == self.cityList.count {
-            self.dataList = tempList
-          }
-        }
-      }
+      self.getWeather()
     }
   }
   
