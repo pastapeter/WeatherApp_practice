@@ -14,4 +14,17 @@ extension String {
     let time = timeArr[1].components(separatedBy: ":")[0...1].joined(separator: ":")
     return date + " " + time    
   }
+  
+  func toDate(format: String) -> Date? {
+    var currentStr = self
+    if !format.contains("yyyy") {
+      let year = Date().toString(dateFormat: "yyyy")
+      currentStr = year + "/" + self
+    }
+    let dateFormatter = DateFormatter()
+    dateFormatter.dateFormat = "yyyy/MM/dd HH:mm"
+    dateFormatter.timeZone = TimeZone.autoupdatingCurrent
+    dateFormatter.locale = Locale.current
+    return dateFormatter.date(from: currentStr)
+  }
 }
