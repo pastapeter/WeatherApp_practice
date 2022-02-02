@@ -15,6 +15,6 @@ public struct APIInfo {
   
   static let baseUrl = "https://api.openweathermap.org/"
   
-  static let iconUrl = "http://openweathermap.org/"
+  static let iconUrl = "https://openweathermap.org/img/w/"
   
 }
