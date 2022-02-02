@@ -38,15 +38,19 @@ final class WeatherMainViewController: UIViewController {
   }
 
   //MARK: - Private
-  private var datasource: [CurrentWeatherCellModel] = []
+  private var datasource: [WeatherMainCellModel] = []
   private let viewModel: WeatherMainViewModel
   
   //factory
   private let makeWeatherDetailVCFactory: WeatherDetailViewControllerFactory
   
-  public init(viewModel: WeatherMainViewModel, weatherDetailViewControllerFactory: WeatherDetailViewControllerFactory) {
+  //imageCache
+  private var imageCache: ImageCache
+  
+  public init(viewModel: WeatherMainViewModel, weatherDetailViewControllerFactory: WeatherDetailViewControllerFactory, imageCache: ImageCache) {
     self.viewModel = viewModel
     self.makeWeatherDetailVCFactory = weatherDetailViewControllerFactory
+    self.imageCache = imageCache
     super.init(nibName: nil, bundle: nil)
   }
   
@@ -77,6 +81,11 @@ extension WeatherMainViewController: UITableViewDataSource {
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     guard let cell = tableView.dequeueReusableCell(withIdentifier: WeatherMainTableViewCell.identifier, for: indexPath) as? WeatherMainTableViewCell else {return WeatherMainTableViewCell()}
     cell.bind(cellModel: datasource[indexPath.row])
+    imageCache.getIcon(with: datasource[indexPath.row].imageUrl, completion: { (image) in
+      if let image = image {
+        cell.weatherImageView.image = image
+      }
+    })
     return cell
   }
 

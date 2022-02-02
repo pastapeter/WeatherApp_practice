@@ -10,7 +10,7 @@ import Foundation
 final class WeatherMainViewModel {
   
   var updatedUI: (() -> ())?
-  var datasource: [CurrentWeatherCellModel] = [] {
+  var datasource: [WeatherMainCellModel] = [] {
     didSet {
       updatedUI?()
     }
@@ -48,7 +48,7 @@ final class WeatherMainViewModel {
       convertToCellModel()
     }
   }
-  private var tempDatasource: [CurrentWeatherCellModel] = []
+  private var tempDatasource: [WeatherMainCellModel] = []
   
   private var cityList: [String] = []
   private var timer: Timer?
@@ -79,7 +79,7 @@ final class WeatherMainViewModel {
   private func convertToCellModel(){
     dataList.enumerated().forEach { (index, item) in
       if let main = item.main {
-        let cellmodel = CurrentWeatherCellModel(name: item.name, currentTemperature: main.temp, currentHumid: main.humidity, imageUrl: APIInfo.iconUrl + item.weather[0].icon + ".png")
+        let cellmodel = WeatherMainCellModel(name: item.name, currentTemperature: main.temp, currentHumid: main.humidity, imageUrl: APIInfo.iconUrl + item.weather[0].icon + ".png")
         if self.tempDatasource.count == cityList.count {
           if self.tempDatasource[index] != cellmodel {
             self.tempDatasource[index] = cellmodel
