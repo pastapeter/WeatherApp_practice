@@ -79,7 +79,7 @@ final class WeatherMainViewModel {
   private func convertToCellModel(){
     dataList.enumerated().forEach { (index, item) in
       if let main = item.main {
-        let cellmodel = CurrentWeatherCellModel(name: item.name, currentTemperature: main.temp, currentHumid: main.humidity)
+        let cellmodel = CurrentWeatherCellModel(name: item.name, currentTemperature: main.temp, currentHumid: main.humidity, imageUrl: APIInfo.iconUrl + item.weather[0].icon + ".png")
         if self.tempDatasource.count == cityList.count {
           if self.tempDatasource[index] != cellmodel {
             self.tempDatasource[index] = cellmodel
