@@ -12,7 +12,7 @@ class WeatherDetailTableViewCell: UITableViewCell {
   lazy var titleLabel: UILabel = {
     let label = UILabel()
     label.translatesAutoresizingMaskIntoConstraints = false
-    label.font = UIFont.preferredFont(forTextStyle: .body)
+    label.font = UIFont.preferredFont(forTextStyle: .caption1)
     label.numberOfLines = 0
     label.text = "도시이름 : "
     return label

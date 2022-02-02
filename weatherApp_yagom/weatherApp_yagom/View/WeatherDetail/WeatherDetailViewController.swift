@@ -33,13 +33,13 @@ class WeatherDetailViewController: UIViewController {
         guard let self = self else {return}
         self.datasource[0] = viewModel.cityName
         self.datasource[1] = viewModel.weatherInfo.imageUrl
-        self.datasource[2] = "현재온도: \(viewModel.weatherInfo.temp)"
-        self.datasource[3] = "체감온도: \(viewModel.weatherInfo.feelsLike)"
+        self.datasource[2] = "현재온도: \(viewModel.weatherInfo.temp)℃"
+        self.datasource[3] = "체감온도: \(viewModel.weatherInfo.feelsLike)℃"
         self.datasource[4] = "현재습도: \(viewModel.weatherInfo.humidity)%"
-        self.datasource[5] = "기압: \(viewModel.weatherInfo.pressure)"
-        self.datasource[6] = "최고온도: \(viewModel.weatherInfo.tempMax)"
-        self.datasource[7] = "최저기온: \(viewModel.weatherInfo.tempMin)"
-        self.datasource[8] = "풍속: \(viewModel.weatherInfo.windSpeed)"
+        self.datasource[5] = "기압: \(viewModel.weatherInfo.pressure)hPa"
+        self.datasource[6] = "최고온도: \(viewModel.weatherInfo.tempMax)℃"
+        self.datasource[7] = "최저기온: \(viewModel.weatherInfo.tempMin)℃"
+        self.datasource[8] = "풍속: \(viewModel.weatherInfo.windSpeed)m/s"
         self.datasource[9] = "오늘의 날씨는 \(viewModel.weatherInfo.description)"
         self.tableView.reloadData()
       }

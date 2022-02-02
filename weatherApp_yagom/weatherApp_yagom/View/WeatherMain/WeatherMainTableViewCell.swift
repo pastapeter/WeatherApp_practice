@@ -23,7 +23,7 @@ final class WeatherMainTableViewCell: UITableViewCell, NibLoadableView {
 extension WeatherMainTableViewCell {
   func bind(cellModel: WeatherMainCellModel) {
     currentHumidLabel.text = "\(cellModel.currentHumid)%"
-    currentTemperatureLabel.text = "\(cellModel.currentTemperature)"
+    currentTemperatureLabel.text = String(format: "%.2f℃", cellModel.currentTemperature)
     cityNameLabel.text = "\(cellModel.name)"
   }
 }
