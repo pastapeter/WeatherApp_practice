@@ -96,8 +96,9 @@ extension WeatherMainViewController: UITableViewDelegate {
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     viewModel.stopSync()
     let cityName = datasource[indexPath.row].name
-    print(cityName)
-    let vc = makeWeatherDetailVCFactory.makeWeatherDetailViewController(cityName: cityName)
+    viewModel.selectedCity = cityName
+//    let vc = makeWeatherDetailVCFactory.makeWeatherDetailViewController(cityName: cityName)
+    let vc = makeWeatherDetailVCFactory.makeWeatherDetailViewController()
     self.navigationController?.pushViewController(vc, animated: true)
   }
 }

@@ -10,6 +10,7 @@ import Foundation
 final class WeatherMainViewModel {
   
   var updatedUI: (() -> ())?
+  var selectedCity: String = ""
   var datasource: [WeatherMainCellModel] = [] {
     didSet {
       updatedUI?()

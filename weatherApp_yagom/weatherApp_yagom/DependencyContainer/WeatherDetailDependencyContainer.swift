@@ -16,15 +16,16 @@ final class WeatherDetailDependencyContainer {
   // 상태저장 의존성
   let sharedWeatherDetailViewModel: WeatherDetailViewModel
   
-  public init(appDependencyContainer: WeatherMainDependencyContainer, cityName: String) {
+  public init(appDependencyContainer: WeatherMainDependencyContainer) {
     
-    func makeWeatherDetailViewModel(weatherRepository: CurrentWeatherRepository, cityName: String) -> WeatherDetailViewModel {
-      return WeatherDetailViewModel(weatherRepository: weatherRepository, cityName: cityName)
+    func makeWeatherDetailViewModel(weatherRepository: CurrentWeatherRepository) -> WeatherDetailViewModel {
+      let selectedCity = appDependencyContainer.sharedWeatherMainViewModel.selectedCity
+      return WeatherDetailViewModel(weatherRepository: weatherRepository, cityName: selectedCity)
     }
     
     self.sharedWeatherRepository = appDependencyContainer.sharedWeatherRepository
     self.imageCacher = appDependencyContainer.imageCache
-    self.sharedWeatherDetailViewModel = makeWeatherDetailViewModel(weatherRepository: sharedWeatherRepository, cityName: cityName)
+    self.sharedWeatherDetailViewModel = makeWeatherDetailViewModel(weatherRepository: sharedWeatherRepository)
   }
   
   func makeWeatherDetailViewController() -> WeatherDetailViewController {

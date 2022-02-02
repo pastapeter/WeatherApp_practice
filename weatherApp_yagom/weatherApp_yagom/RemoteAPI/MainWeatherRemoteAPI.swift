@@ -11,10 +11,11 @@ final class MainWeatherRemoteAPI: WeatherRemoteAPI  {
   
   public func fetchCityCurrentWeather(in city: String, completion: @escaping(CurrentWeather) -> ()) {
     let url = makeURL(with: city, isCurrent: true)
-    NetworkRequest.request(url: url) { result in
+    NetworkRequest.request(url: url) { [weak self] result in
+      guard let self = self else {return}
       switch result {
       case .success(let data):
-        NetworkCoder().getResponse(data: data, style: CurrentWeather.self, completion: completion)
+        self.networkCoder.getResponse(data: data, style: CurrentWeather.self, completion: completion)
       case .failure(let error):
         print(error)
       }
@@ -23,23 +24,26 @@ final class MainWeatherRemoteAPI: WeatherRemoteAPI  {
   
   public func fetchFutureWeather(in city: String, completion: @escaping(FutureWeather)-> ()) {
     let url = makeURL(with: city, isCurrent: false)
-    NetworkRequest.request(url: url) { result in
+    NetworkRequest.request(url: url) { [weak self] result in
+      guard let self = self else {return}
       switch result {
       case .success(let data):
-        NetworkCoder().getResponse(data: data, style: FutureWeather.self, completion: completion)
+        self.networkCoder.getResponse(data: data, style: FutureWeather.self, completion: completion)
       case .failure(let error):
         print(error)
       }
     }
   }
   
-  public init () {
+  public init (coder: NetworkCoding) {
+    self.networkCoder = coder
   }
   
   //MARK: - private
   
   private let key = APIInfo.apiKey
   private let baseUrl = APIInfo.baseUrl
+  private let networkCoder: NetworkCoding
   
   private func makeURL(with cityname: String, isCurrent: Bool) -> String {
     var currentParam = "weather"

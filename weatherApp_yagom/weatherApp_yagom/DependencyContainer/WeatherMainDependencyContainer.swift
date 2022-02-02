@@ -21,7 +21,12 @@ public class WeatherMainDependencyContainer {
     }
     
     func makeWeatherRemoteAPI() -> WeatherRemoteAPI {
-      return MainWeatherRemoteAPI()
+      let coder = makeNetworkCoder()
+      return MainWeatherRemoteAPI(coder: coder)
+    }
+    
+    func makeNetworkCoder() -> NetworkCoding {
+      return NetworkCoder()
     }
     
     func makeWeatherMainViewModel() -> WeatherMainViewModel {
@@ -44,13 +49,14 @@ public class WeatherMainDependencyContainer {
   }
   
   // WeatherDetail
-  func makeWeatherDetailViewController(cityName: String) -> WeatherDetailViewController {
-    let dependencyContainer = makeWeatherDetailDependencyContainer(cityName: cityName)
+  
+  func makeWeatherDetailViewController() -> WeatherDetailViewController {
+    let dependencyContainer = makeWeatherDetailDependencyContainer()
     return dependencyContainer.makeWeatherDetailViewController()
   }
-  
-  func makeWeatherDetailDependencyContainer(cityName: String) -> WeatherDetailDependencyContainer {
-    return WeatherDetailDependencyContainer(appDependencyContainer: self, cityName: cityName)
+    
+  func makeWeatherDetailDependencyContainer() -> WeatherDetailDependencyContainer {
+    return WeatherDetailDependencyContainer(appDependencyContainer: self)
   }
 
 }
@@ -58,5 +64,5 @@ public class WeatherMainDependencyContainer {
 extension WeatherMainDependencyContainer: WeatherDetailViewControllerFactory { }
 
 protocol WeatherDetailViewControllerFactory {
-  func makeWeatherDetailViewController(cityName: String) -> WeatherDetailViewController
+  func makeWeatherDetailViewController() -> WeatherDetailViewController
 }
