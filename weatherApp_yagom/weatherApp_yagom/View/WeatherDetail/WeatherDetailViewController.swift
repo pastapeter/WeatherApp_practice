@@ -22,7 +22,8 @@ class WeatherDetailViewController: UIViewController {
   
   //MARK: - init
 
-  public init(viewModel: WeatherDetailViewModel, futureWeatherViewControllerFactory: FutureWeatherViewControllerFactory) {
+  public init(viewModel: WeatherDetailViewModel, futureWeatherViewControllerFactory: FutureWeatherViewControllerFactory, imageCacher: ImageCache) {
+    self.imageCacher = imageCacher
     self.viewModel = viewModel
     self.futureWeatherViewControllerFactory = futureWeatherViewControllerFactory
     super.init(nibName: nil, bundle: nil)
@@ -31,7 +32,7 @@ class WeatherDetailViewController: UIViewController {
       DispatchQueue.main.async { [weak self] in
         guard let self = self else {return}
         self.datasource[0] = viewModel.cityName
-  //      datasource[1] =
+        self.datasource[1] = viewModel.weatherInfo.imageUrl
         self.datasource[2] = "현재온도: \(viewModel.weatherInfo.temp)"
         self.datasource[3] = "체감온도: \(viewModel.weatherInfo.feelsLike)"
         self.datasource[4] = "현재습도: \(viewModel.weatherInfo.humidity)%"
@@ -68,6 +69,7 @@ class WeatherDetailViewController: UIViewController {
   
   private var viewModel: WeatherDetailViewModel
   private var futureWeatherViewControllerFactory: FutureWeatherViewControllerFactory
+  private var imageCacher: ImageCache
   
   private func setupBarbutton() {
     navigationItem.rightBarButtonItem = futureWeatherButton
@@ -110,7 +112,13 @@ extension WeatherDetailViewController: UITableViewDataSource {
     guard let cell = tableView.dequeueReusableCell(withIdentifier: WeatherDetailTableViewCell.identifier, for: indexPath) as? WeatherDetailTableViewCell else { return WeatherDetailTableViewCell()}
     
     if indexPath.row == 1 { //icon
-      cell.iconImageView.image = UIImage(systemName: "cloud.sun")
+      if datasource[indexPath.row] != "" {
+        imageCacher.getIcon(with: datasource[indexPath.row]) { (image) in
+          if let image = image {
+            cell.iconImageView.image = image
+          }
+        }
+      }
       cell.stackView.alignment = .center
       cell.iconImageView.isHidden = false
       cell.titleLabel.text = nil

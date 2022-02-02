@@ -47,7 +47,7 @@ final class WeatherDetailViewModel {
     self.weatherRepository.currentWeather(in: cityName) { [weak self] weather in
       guard let self = self else {return}
       guard let main = weather.main, let wind = weather.wind else {return}
-      self.weatherInfo = DetailWeatherInfo(temp: main.temp, feelsLike: main.feelsLikeTemp,
+      self.weatherInfo = DetailWeatherInfo(temp: main.temp, imageUrl: APIInfo.iconUrl+weather.weather[0].icon+".png", feelsLike: main.feelsLikeTemp,
                                            tempMin: main.tempMin, tempMax: main.tempMax,
                                            pressure: main.pressure, humidity: main.humidity,
                                            windSpeed: wind.speed ?? -100,
@@ -70,6 +70,7 @@ extension WeatherDetailViewModel {
   // WeatherDetailViewModel에서만 선언가능한 구조체
   struct DetailWeatherInfo {
     var temp: Double = 0.0
+    var imageUrl: String = ""
     var feelsLike: Double = 0.0
     var tempMin: Double = 0
     var tempMax: Double = 0.0
