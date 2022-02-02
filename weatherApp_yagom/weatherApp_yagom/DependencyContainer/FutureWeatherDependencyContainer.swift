@@ -18,7 +18,12 @@ final class FutureWeatherDependencyContainer {
   init(appDependencyContainer: WeatherDetailDependencyContainer, cityName: String) {
     
     func makeWeatherRemoteAPI() -> WeatherRemoteAPI {
-      return MainWeatherRemoteAPI()
+      let coder = makeNetworkCoder()
+      return MainWeatherRemoteAPI(coder: coder)
+    }
+    
+    func makeNetworkCoder() -> NetworkCoding {
+      return NetworkCoder()
     }
     
     func makeFutureWeatherRepository() -> FutureWeatherRepository {
