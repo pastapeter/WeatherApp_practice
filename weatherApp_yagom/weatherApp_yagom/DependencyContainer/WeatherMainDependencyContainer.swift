@@ -12,6 +12,7 @@ public class WeatherMainDependencyContainer {
   //상태저장의존성
   let sharedWeatherRepository: CurrentWeatherRepository
   let sharedWeatherMainViewModel: WeatherMainViewModel
+  let imageCache: ImageCache
   
   public init() {
     func makeCurrentWeatherRepository() -> CurrentWeatherRepository {
@@ -27,6 +28,11 @@ public class WeatherMainDependencyContainer {
       return WeatherMainViewModel(currentWeatherRepository: makeCurrentWeatherRepository())
     }
     
+    func makeImageCache() -> ImageCache {
+      return ImageCacher()
+    }
+    
+    self.imageCache = makeImageCache()
     self.sharedWeatherMainViewModel = makeWeatherMainViewModel()
     self.sharedWeatherRepository = makeCurrentWeatherRepository()
   }
@@ -34,7 +40,7 @@ public class WeatherMainDependencyContainer {
   // WeatherMainViewController
   func makeWeatherMainViewController() -> WeatherMainViewController {
     
-    return WeatherMainViewController(viewModel: sharedWeatherMainViewModel, weatherDetailViewControllerFactory: self )
+    return WeatherMainViewController(viewModel: sharedWeatherMainViewModel, weatherDetailViewControllerFactory: self , imageCache: imageCache)
   }
   
   // WeatherDetail
