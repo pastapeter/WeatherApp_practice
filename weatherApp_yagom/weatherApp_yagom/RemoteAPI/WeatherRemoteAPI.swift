@@ -10,5 +10,4 @@ import Foundation
 protocol WeatherRemoteAPI: AnyObject {
   func fetchCityCurrentWeather(in city: String, completion: @escaping(CurrentWeather) -> ())
   func fetchFutureWeather(in city: String, completion: @escaping(FutureWeather) -> ())
-  func fetchIcon(with name: String, completion: @escaping(String) -> ())
 }

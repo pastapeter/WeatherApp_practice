@@ -33,10 +33,6 @@ final class MainWeatherRemoteAPI: WeatherRemoteAPI  {
     }
   }
   
-  public func fetchIcon(with name: String, completion: @escaping(String) -> ()) {
-    
-  }
-  
   public init () {
   }
   
@@ -44,7 +40,6 @@ final class MainWeatherRemoteAPI: WeatherRemoteAPI  {
   
   private let key = APIInfo.apiKey
   private let baseUrl = APIInfo.baseUrl
-  private let iconUrl = APIInfo.iconUrl
   
   private func makeURL(with cityname: String, isCurrent: Bool) -> String {
     var currentParam = "weather"

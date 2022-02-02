@@ -19,10 +19,6 @@ final class WeatherRepository: CurrentWeatherRepository, FutureWeatherRepository
     remoteAPI.fetchCityCurrentWeather(in: city, completion: completion)
   }
   
-  func weatherIcon(iconName: String, completion: @escaping(String) -> ()) {
-    remoteAPI.fetchIcon(with: iconName, completion: completion)
-  }
-  
   func futureWeather(in city: String, completion: @escaping (FutureWeather) -> ()) {
     remoteAPI.fetchFutureWeather(in: city, completion: completion)
   }
