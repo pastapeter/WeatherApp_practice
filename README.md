@@ -6,23 +6,27 @@
 
 WeatherApp_정도현에는 DependencyContainer는 3개가 존재합니다. `WeatherMainDependency`가 최상위 DependencyContainer이고, 아래로 내려갈수록 하위 DependencyContainer로 볼 수 있습니다. 하위 컨테이너로 넘어가면서, 부모로부터 필요한 의존성을 받을뿐 아니라, 새롭게 필요한 의존성을 만들어서, 만들어야할 객체에 주입합니다.
 
-![Untitled](WeatherApp_%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%83%E1%85%A9%E1%84%92%E1%85%A7%E1%86%AB%203793062194514294baf029c6c64ce2d5/Untitled.png)
+![Untitled](https://user-images.githubusercontent.com/69891604/152113481-4482caca-2496-4ca0-9d01-53f1688f70cc.png)
+
 
 ## `WeatherMainDependencyContainer`
 
 `WeatherMainViewController`가 보여질 수 있도록 필요한 의존성을 주입해주는 DI Container입니다.  이 컨테이너에서는 아래와 같은 의존성 그래프가 그려진다. 
 
-![Untitled](WeatherApp_%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%83%E1%85%A9%E1%84%92%E1%85%A7%E1%86%AB%203793062194514294baf029c6c64ce2d5/Untitled%201.png)
+![Untitled 1](https://user-images.githubusercontent.com/69891604/152113505-8099fde7-a856-4e6f-9b26-8a51580f9eb4.png)
+
 
 ### `WeatherRepository`
 
-![Untitled](WeatherApp_%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%83%E1%85%A9%E1%84%92%E1%85%A7%E1%86%AB%203793062194514294baf029c6c64ce2d5/Untitled%202.png)
+![Untitled 2](https://user-images.githubusercontent.com/69891604/152113520-9b18e51b-01f5-4060-9e84-5847e90aae50.png)
+
 
 Repository Pattern을 활용해서 `WeatherRepository` 를 사용하는 특정 객체(`WeatherMainViewModel`)이 데이터가 어디서 오는지 모르면서, 데이터를 fetch할 수 있게 만들었다. 
 
 ### `WeatherMainViewController`
 
-![Untitled](WeatherApp_%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%83%E1%85%A9%E1%84%92%E1%85%A7%E1%86%AB%203793062194514294baf029c6c64ce2d5/Untitled%203.png)
+![Untitled 3](https://user-images.githubusercontent.com/69891604/152113578-ccc62474-7327-427d-8f45-afe263ffcb35.png)
+
 
 `WeatherMainViewController`는 `WeatherMainViewModel`, 이미지를 캐싱할수 있는  `ImageCache`, `WeatherDetailViewController`를 만들 수 있는 Factory Method를 의존성으로 가진다.  그리고 `WeatherMainViewModel`은 현재 날씨를 가져올 수 있는 `CurrentWeatherRepository`를 의존성으로 가진다. 
 
@@ -30,11 +34,12 @@ Repository Pattern을 활용해서 `WeatherRepository` 를 사용하는 특정 �
 
 ### WeatherMain화면
 
-![Simulator Screen Shot - iPhone 13 - 2022-02-02 at 16.09.22.png](WeatherApp_%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%83%E1%85%A9%E1%84%92%E1%85%A7%E1%86%AB%203793062194514294baf029c6c64ce2d5/Simulator_Screen_Shot_-_iPhone_13_-_2022-02-02_at_16.09.22.png)
+![Simulator_Screen_Shot_-_iPhone_13_-_2022-02-02_at_16 09 22](https://user-images.githubusercontent.com/69891604/152113607-62a80a9f-c51f-40b2-a0f1-dec6529de80f.png)
+
 
 ## `WeatherDetailDependencyContainer`
 
-![Untitled](WeatherApp_%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%83%E1%85%A9%E1%84%92%E1%85%A7%E1%86%AB%203793062194514294baf029c6c64ce2d5/Untitled%204.png)
+![Untitled 4](https://user-images.githubusercontent.com/69891604/152113636-00c43250-9132-4ff3-94d0-cfb9d7110025.png)
 
 `WeatherMainViewController`에서 `WeatherDetailViewController`로 전환될 때, FactoryMethod로 인해서 `WeatherDetailDependencyContainer`가 생기고, 이를 통해서 `WeatherDetailViewController`와 관련된 모든 의존성 그래프가 그려지면서, 주입된다.
 
@@ -44,17 +49,20 @@ Repository Pattern을 활용해서 `WeatherRepository` 를 사용하는 특정 �
 
 ### WeatherDetail화면
 
-![Simulator Screen Shot - iPhone 13 - 2022-02-02 at 16.09.27.png](WeatherApp_%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%83%E1%85%A9%E1%84%92%E1%85%A7%E1%86%AB%203793062194514294baf029c6c64ce2d5/Simulator_Screen_Shot_-_iPhone_13_-_2022-02-02_at_16.09.27.png)
+![Simulator_Screen_Shot_-_iPhone_13_-_2022-02-02_at_16 09 27](https://user-images.githubusercontent.com/69891604/152113676-5deb9f29-2ac4-4c8b-b225-9e80cb19a99b.png)
+
 
 ## `FutureWeatherDependencyContainer`
 
-![Untitled](WeatherApp_%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%83%E1%85%A9%E1%84%92%E1%85%A7%E1%86%AB%203793062194514294baf029c6c64ce2d5/Untitled%205.png)
+![Untitled 5](https://user-images.githubusercontent.com/69891604/152113696-1de663ad-730e-49a4-8384-04e6dd6cee36.png)
+
 
 `FutureWeatherViewController`에서는 `FutureWeatherViewModel`을 의존, `FutureWeatherViewModel`은 `FutureWeatherRepository`를 의존한다. `FutureWeatherViewModel`에서는 `FutureWeatherViewController`에서 그려줄 꺽은선 그래프를 그리는 데 필요한 정보들을 정제해서 제공한다. 이 데이터는 `FutureWeatherTableViewCell`에 @IBOutlet으로 정의되어있는 lineChart에 바인딩된다. 
 
 `FutureWeatherViewModel`의 `syncWeather()`이라는 함수는 다른 ViewModel과는 다르게 매 초마다 데이터를 요구하지않는다. 1분마다 현재 날짜와 미리캐싱한 데이터(viewModel에서 상태를 저장하고 있다.)를 비교한다. 그리고 만약 미리 캐싱한 데이터의 첫 데이터의 날짜 및 시간이, 현재 날짜 및 시간보다 늦을때, 즉 일기예보가 되지 않을떄 다시 데이터를 요청한다.
 
-![Simulator Screen Shot - iPhone 13 - 2022-02-02 at 00.57.04.png](WeatherApp_%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%83%E1%85%A9%E1%84%92%E1%85%A7%E1%86%AB%203793062194514294baf029c6c64ce2d5/Simulator_Screen_Shot_-_iPhone_13_-_2022-02-02_at_00.57.04.png)
+![Simulator_Screen_Shot_-_iPhone_13_-_2022-02-02_at_00 57 04](https://user-images.githubusercontent.com/69891604/152113716-63661e0f-d90e-4670-a199-bd5af9565056.png)
+
 
 ## 과제 회고 및 리팩토링할 사항
 
@@ -71,3 +79,4 @@ Repository Pattern을 활용해서 `WeatherRepository` 를 사용하는 특정 �
 
 ## 프로젝트
 
+[모모](https://apps.apple.com/kr/app/%EB%AA%A8%EB%AA%A8-momo/id1603120966)
