@@ -34,7 +34,7 @@ final class WeatherDetailDependencyContainer {
   
   // FutureWeather
   func makeFutureWeatherViewController() -> FutureWeatherViewController {
-    let dependencyContainer = FutureWeatherDependencyContainer(appDependencyContainer: self, cityName: sharedWeatherDetailViewModel.cityName)
+    let dependencyContainer = FutureWeatherDependencyContainer(appDependencyContainer: self)
     return dependencyContainer.makeFutureWeatherViewController()
   }
   

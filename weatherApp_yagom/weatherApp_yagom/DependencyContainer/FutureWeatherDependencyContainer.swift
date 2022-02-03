@@ -15,7 +15,7 @@ final class FutureWeatherDependencyContainer {
   let sharedFutureWeatherRepository: FutureWeatherRepository
   let sharedFutureWeatherViewModel: FutureWeatherViewModel
   
-  init(appDependencyContainer: WeatherDetailDependencyContainer, cityName: String) {
+  init(appDependencyContainer: WeatherDetailDependencyContainer) {
     
     func makeWeatherRemoteAPI() -> WeatherRemoteAPI {
       let coder = makeNetworkCoder()
@@ -33,12 +33,13 @@ final class FutureWeatherDependencyContainer {
     
     let repository = makeFutureWeatherRepository()
     
-    func makeFutureWeatherViewModel(cityName: String) -> FutureWeatherViewModel {
+    func makeFutureWeatherViewModel() -> FutureWeatherViewModel {
       return FutureWeatherViewModel(futureWeatherRepository: repository, cityName: cityName)
     }
     
+    let cityName = appDependencyContainer.sharedWeatherDetailViewModel.cityName
     self.sharedFutureWeatherRepository = repository
-    self.sharedFutureWeatherViewModel = makeFutureWeatherViewModel(cityName: cityName)
+    self.sharedFutureWeatherViewModel = makeFutureWeatherViewModel()
     
   }
   
