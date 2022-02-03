@@ -39,6 +39,17 @@ final class FutureWeatherViewModel {
     }
   }
   
+  func generateEntries(with Entrytype: EntryType) -> [PointEntry] {
+    switch Entrytype {
+    case .tempMin:
+      return forecast.map { PointEntry(value: $0.tempMin, label: $0.time)}
+    case .tempMax:
+      return forecast.map { PointEntry(value: $0.tempMax, label: $0.time)}
+    case .humid:
+      return forecast.map { PointEntry(value: $0.humid, label: $0.time)}
+    }
+  }
+  
   //MARK: - Private
   
   private func getForecast() {
@@ -62,6 +73,12 @@ final class FutureWeatherViewModel {
         }
       }
     }
+  }
+  
+  enum EntryType {
+    case tempMin
+    case tempMax
+    case humid
   }
   
   

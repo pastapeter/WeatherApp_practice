@@ -81,31 +81,6 @@ class FutureWeatherViewController: UIViewController {
   
   //MARK: - Private
   private var viewModel: FutureWeatherViewModel
-  
-  private func generateMaxTempEntries() -> [PointEntry] {
-    var result: [PointEntry] = []
-    result = viewModel.forecast.map {
-      PointEntry(value: $0.tempMax, label: $0.time)
-    }
-    return result
-  }
-  
-  private func generateMinTempEntries() -> [PointEntry] {
-    var result: [PointEntry] = []
-    result = viewModel.forecast.map {
-      PointEntry(value: $0.tempMin, label: $0.time)
-    }
-    return result
-  }
-  
-  private func generateHumidEntries() -> [PointEntry] {
-    var result: [PointEntry] = []
-    result = viewModel.forecast.map {
-      PointEntry(value: $0.humid, label: $0.time)
-    }
-    return result
-  }
-  
 }
 
 extension FutureWeatherViewController: UITableViewDataSource {
@@ -122,9 +97,9 @@ extension FutureWeatherViewController: UITableViewDataSource {
     } else {
       cell.cityLabel.text = nil
       cell.lineChart.isHidden = false
-      cell.lineChart.maxTempDataEntries = generateMaxTempEntries()
-      cell.lineChart.humidDataEntries = generateHumidEntries()
-      cell.lineChart.minTempDataEntries = generateMinTempEntries()
+      cell.lineChart.maxTempDataEntries = viewModel.generateEntries(with: .tempMax)
+      cell.lineChart.humidDataEntries = viewModel.generateEntries(with: .humid)
+      cell.lineChart.minTempDataEntries = viewModel.generateEntries(with: .tempMin)
     }
     
     return cell
