@@ -56,9 +56,9 @@ class FutureWeatherViewController: UIViewController {
   init(viewModel: FutureWeatherViewModel) {
     self.viewModel = viewModel
     super.init(nibName: nil, bundle: nil)
-    viewModel.updateUI = {
-      DispatchQueue.main.async { [weak self] in
-        guard let self = self else {return}
+    viewModel.updateUI = { [weak self] in
+      guard let self = self else {return}
+      DispatchQueue.main.async { 
         self.tableView.reloadRows(at: [IndexPath(row: 1, section: 0)], with: .none)
       }
     }

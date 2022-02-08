@@ -28,19 +28,19 @@ class WeatherDetailViewController: UIViewController {
     self.futureWeatherViewControllerFactory = futureWeatherViewControllerFactory
     super.init(nibName: nil, bundle: nil)
     
-    self.viewModel.updateUI = {
-      DispatchQueue.main.async { [weak self] in
-        guard let self = self else {return}
-        self.datasource[0] = viewModel.cityName
-        self.datasource[1] = viewModel.weatherInfo.imageUrl
-        self.datasource[2] = "현재온도: \(viewModel.weatherInfo.temp)℃"
-        self.datasource[3] = "체감온도: \(viewModel.weatherInfo.feelsLike)℃"
-        self.datasource[4] = "현재습도: \(viewModel.weatherInfo.humidity)%"
-        self.datasource[5] = "기압: \(viewModel.weatherInfo.pressure)hPa"
-        self.datasource[6] = "최고온도: \(viewModel.weatherInfo.tempMax)℃"
-        self.datasource[7] = "최저기온: \(viewModel.weatherInfo.tempMin)℃"
-        self.datasource[8] = "풍속: \(viewModel.weatherInfo.windSpeed)m/s"
-        self.datasource[9] = "오늘의 날씨는 \(viewModel.weatherInfo.description)"
+    self.viewModel.updateUI = { [weak self] in
+      guard let self = self else {return}
+      DispatchQueue.main.async {
+        self.datasource[0] = self.viewModel.cityName
+        self.datasource[1] = self.viewModel.weatherInfo.imageUrl
+        self.datasource[2] = "현재온도: \(self.viewModel.weatherInfo.temp)℃"
+        self.datasource[3] = "체감온도: \(self.viewModel.weatherInfo.feelsLike)℃"
+        self.datasource[4] = "현재습도: \(self.viewModel.weatherInfo.humidity)%"
+        self.datasource[5] = "기압: \(self.viewModel.weatherInfo.pressure)hPa"
+        self.datasource[6] = "최고온도: \(self.viewModel.weatherInfo.tempMax)℃"
+        self.datasource[7] = "최저기온: \(self.viewModel.weatherInfo.tempMin)℃"
+        self.datasource[8] = "풍속: \(self.viewModel.weatherInfo.windSpeed)m/s"
+        self.datasource[9] = "오늘의 날씨는 \(self.viewModel.weatherInfo.description)"
         self.tableView.reloadData()
       }
     }
@@ -69,7 +69,7 @@ class WeatherDetailViewController: UIViewController {
   
   private var viewModel: WeatherDetailViewModel
   private var futureWeatherViewControllerFactory: FutureWeatherViewControllerFactory
-  private var imageCacher: ImageCache
+  private weak var imageCacher: ImageCache?
   
   private func setupBarbutton() {
     navigationItem.rightBarButtonItem = futureWeatherButton
@@ -113,7 +113,7 @@ extension WeatherDetailViewController: UITableViewDataSource {
     
     if indexPath.row == 1 { //icon
       if datasource[indexPath.row] != "" {
-        imageCacher.getIcon(with: datasource[indexPath.row]) { (image) in
+        imageCacher?.getIcon(with: datasource[indexPath.row]) { (image) in
           if let image = image {
             cell.iconImageView.image = image
           }

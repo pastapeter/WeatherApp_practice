@@ -40,11 +40,14 @@ final class WeatherDetailViewModel {
   let cityName: String
   
   //MARK: - private
-  private let weatherRepository: CurrentWeatherRepository
+  private weak var weatherRepository: CurrentWeatherRepository?
   private var timer: Timer?
   
   private func getWeather() {
-    self.weatherRepository.currentWeather(in: cityName) { [weak self] weather in
+    guard let weatherRepository = weatherRepository else {
+      return
+    }
+    weatherRepository.currentWeather(in: cityName) { [weak self] weather in
       guard let self = self else {return}
       guard let main = weather.main, let wind = weather.wind else {return}
       self.weatherInfo = DetailWeatherInfo(temp: main.temp, imageUrl: APIInfo.iconUrl+weather.weather[0].icon+".png", feelsLike: main.feelsLikeTemp,
