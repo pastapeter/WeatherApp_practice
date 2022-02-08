@@ -7,6 +7,6 @@
 
 import Foundation
 
-protocol NetworkCoding {
+protocol NetworkCoding: AnyObject {
   func getResponse<T: Codable>(data: Data, style: T.Type, completion: @escaping(T) -> Void)
 }
