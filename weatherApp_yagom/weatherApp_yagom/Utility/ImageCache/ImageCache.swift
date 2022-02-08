@@ -7,6 +7,7 @@
 
 import UIKit
 
-protocol ImageCache {
+protocol ImageCache: AnyObject {
   func getIcon(with url: String , completion: @escaping(UIImage?) -> Void)
 }
+

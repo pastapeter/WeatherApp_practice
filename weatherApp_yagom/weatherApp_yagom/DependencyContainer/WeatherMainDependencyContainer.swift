@@ -11,7 +11,6 @@ public class WeatherMainDependencyContainer {
   
   //상태저장의존성
   let sharedWeatherRepository: CurrentWeatherRepository
-  let sharedWeatherMainViewModel: WeatherMainViewModel
   let imageCache: ImageCache
   
   public init() {
@@ -29,40 +28,36 @@ public class WeatherMainDependencyContainer {
       return NetworkCoder()
     }
     
-    func makeWeatherMainViewModel() -> WeatherMainViewModel {
-      return WeatherMainViewModel(currentWeatherRepository: makeCurrentWeatherRepository())
-    }
-    
     func makeImageCache() -> ImageCache {
       return ImageCacher()
     }
     
     self.imageCache = makeImageCache()
-    self.sharedWeatherMainViewModel = makeWeatherMainViewModel()
     self.sharedWeatherRepository = makeCurrentWeatherRepository()
+  }
+  
+  func makeWeatherMainViewModel() -> WeatherMainViewModel {
+    return WeatherMainViewModel(currentWeatherRepository: sharedWeatherRepository)
   }
   
   // WeatherMainViewController
   func makeWeatherMainViewController() -> WeatherMainViewController {
-    
-    return WeatherMainViewController(viewModel: sharedWeatherMainViewModel, weatherDetailViewControllerFactory: self , imageCache: imageCache)
+    let viewModel = makeWeatherMainViewModel()
+    return WeatherMainViewController(viewModel: viewModel, weatherDetailViewControllerFactory: self , imageCache: imageCache)
   }
   
   // WeatherDetail
   
-  func makeWeatherDetailViewController() -> WeatherDetailViewController {
-    let dependencyContainer = makeWeatherDetailDependencyContainer()
+  func makeWeatherDetailViewController(selectedCity: String) -> WeatherDetailViewController {
+    let dependencyContainer = WeatherDetailDependencyContainer(selectedCity: selectedCity, appDependencyContainer: self)
     return dependencyContainer.makeWeatherDetailViewController()
-  }
-    
-  func makeWeatherDetailDependencyContainer() -> WeatherDetailDependencyContainer {
-    return WeatherDetailDependencyContainer(appDependencyContainer: self)
   }
 
 }
 
 extension WeatherMainDependencyContainer: WeatherDetailViewControllerFactory { }
 
-protocol WeatherDetailViewControllerFactory {
-  func makeWeatherDetailViewController() -> WeatherDetailViewController
+protocol WeatherDetailViewControllerFactory: AnyObject {
+  func makeWeatherDetailViewController(selectedCity: String) -> WeatherDetailViewController
 }
+

@@ -58,7 +58,6 @@ final class WeatherDetailViewModel {
   private func syncWeather() {
     timer = Timer.scheduledTimer(withTimeInterval: 3, repeats: true) { [weak self] _ in
       guard let self = self else {return}
-      print("*********** WeatherDetailVM_START ***********")
       self.getWeather()
     }
   }
@@ -81,4 +80,5 @@ extension WeatherDetailViewModel {
   }
   
 }
+
 

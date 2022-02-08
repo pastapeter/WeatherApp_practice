@@ -8,11 +8,9 @@
 import Foundation
 
 final class FutureWeatherViewModel {
-  
-  private let futureWeatherRepository: FutureWeatherRepository
+
   let cityname: String
   var updateUI: (() -> Void)?
-  var timer: Timer?
   
   public init(futureWeatherRepository: FutureWeatherRepository, cityName: String) {
     self.futureWeatherRepository = futureWeatherRepository
@@ -52,6 +50,9 @@ final class FutureWeatherViewModel {
   
   //MARK: - Private
   
+  private var futureWeatherRepository: FutureWeatherRepository
+  private var timer: Timer?
+  
   private func getForecast() {
     self.futureWeatherRepository.futureWeather(in: self.cityname) { [weak self] weather in
       guard let self = self else {return}
@@ -84,3 +85,4 @@ final class FutureWeatherViewModel {
   
   
 }
+

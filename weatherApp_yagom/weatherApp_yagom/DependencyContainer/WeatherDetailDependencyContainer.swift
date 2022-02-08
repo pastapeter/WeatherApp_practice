@@ -9,32 +9,28 @@ import Foundation
 
 final class WeatherDetailDependencyContainer {
   
-  // 부모 container로부터 받는 의존성
   let sharedWeatherRepository: CurrentWeatherRepository
   let imageCacher: ImageCache
+  let selectedCity: String
   
-  // 상태저장 의존성
-  let sharedWeatherDetailViewModel: WeatherDetailViewModel
-  
-  public init(appDependencyContainer: WeatherMainDependencyContainer) {
-    
-    func makeWeatherDetailViewModel(weatherRepository: CurrentWeatherRepository) -> WeatherDetailViewModel {
-      let selectedCity = appDependencyContainer.sharedWeatherMainViewModel.selectedCity
-      return WeatherDetailViewModel(weatherRepository: weatherRepository, cityName: selectedCity)
-    }
-    
+  public init(selectedCity: String, appDependencyContainer: WeatherMainDependencyContainer) {
+    self.selectedCity = selectedCity
     self.sharedWeatherRepository = appDependencyContainer.sharedWeatherRepository
     self.imageCacher = appDependencyContainer.imageCache
-    self.sharedWeatherDetailViewModel = makeWeatherDetailViewModel(weatherRepository: sharedWeatherRepository)
+  }
+  
+  func makeWeatherDetailViewModel(weatherRepository: CurrentWeatherRepository) -> WeatherDetailViewModel {
+    return WeatherDetailViewModel(weatherRepository: weatherRepository, cityName: selectedCity)
   }
   
   func makeWeatherDetailViewController() -> WeatherDetailViewController {
-    return WeatherDetailViewController(viewModel: sharedWeatherDetailViewModel, futureWeatherViewControllerFactory: self, imageCacher: imageCacher)
+    let viewModel = makeWeatherDetailViewModel(weatherRepository: sharedWeatherRepository)
+    return WeatherDetailViewController(viewModel: viewModel, futureWeatherViewControllerFactory: self, imageCacher: imageCacher)
   }
   
   // FutureWeather
   func makeFutureWeatherViewController() -> FutureWeatherViewController {
-    let dependencyContainer = FutureWeatherDependencyContainer(appDependencyContainer: self)
+    let dependencyContainer = FutureWeatherDependencyContainer(selectedCity: selectedCity, appDependencyContainer: self)
     return dependencyContainer.makeFutureWeatherViewController()
   }
   
@@ -42,6 +38,7 @@ final class WeatherDetailDependencyContainer {
 
 extension WeatherDetailDependencyContainer: FutureWeatherViewControllerFactory {}
 
-protocol FutureWeatherViewControllerFactory {
+protocol FutureWeatherViewControllerFactory: AnyObject {
   func makeFutureWeatherViewController() -> FutureWeatherViewController
 }
+

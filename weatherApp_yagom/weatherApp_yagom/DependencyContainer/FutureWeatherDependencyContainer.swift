@@ -13,9 +13,11 @@ final class FutureWeatherDependencyContainer {
   
   //상태 저장 의존성
   let sharedFutureWeatherRepository: FutureWeatherRepository
-  let sharedFutureWeatherViewModel: FutureWeatherViewModel
   
-  init(appDependencyContainer: WeatherDetailDependencyContainer) {
+  //context
+  let cityName: String
+  
+  init(selectedCity: String, appDependencyContainer: WeatherDetailDependencyContainer) {
     
     func makeWeatherRemoteAPI() -> WeatherRemoteAPI {
       let coder = makeNetworkCoder()
@@ -30,21 +32,21 @@ final class FutureWeatherDependencyContainer {
       let remoteAPI = makeWeatherRemoteAPI()
       return WeatherRepository(remoteAPI: remoteAPI)
     }
-    
+  
     let repository = makeFutureWeatherRepository()
-    
-    func makeFutureWeatherViewModel() -> FutureWeatherViewModel {
-      return FutureWeatherViewModel(futureWeatherRepository: repository, cityName: cityName)
-    }
-    
-    let cityName = appDependencyContainer.sharedWeatherDetailViewModel.cityName
+    self.cityName = selectedCity
     self.sharedFutureWeatherRepository = repository
-    self.sharedFutureWeatherViewModel = makeFutureWeatherViewModel()
     
+  }
+  
+  func makeFutureWeatherViewModel() -> FutureWeatherViewModel {
+    return FutureWeatherViewModel(futureWeatherRepository: sharedFutureWeatherRepository, cityName: cityName)
   }
   
   func makeFutureWeatherViewController() -> FutureWeatherViewController {
-    return FutureWeatherViewController(viewModel: sharedFutureWeatherViewModel)
+    let viewModel = makeFutureWeatherViewModel()
+    return FutureWeatherViewController(viewModel: viewModel)
   }
   
 }
+

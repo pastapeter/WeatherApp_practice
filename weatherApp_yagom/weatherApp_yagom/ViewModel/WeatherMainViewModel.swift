@@ -27,17 +27,16 @@ final class WeatherMainViewModel {
     syncWeather()
   }
   
-  func stopSync() {
-    if let timer = timer, timer.isValid {
-      timer.invalidate()
-    }
-  }
-  
   func restartSync() {
     if let timer = timer, timer.isValid == false {
       getWeather()
       syncWeather()
     }
+  }
+  
+  func select(item:WeatherMainCellModel) {
+    self.stopSync()
+    self.selectedCity = item.name
   }
 
   
@@ -53,6 +52,13 @@ final class WeatherMainViewModel {
   
   private var cityList: [String] = []
   private var timer: Timer?
+  
+  private func stopSync() {
+    if let timer = timer, timer.isValid {
+      timer.invalidate()
+    }
+  }
+
   
   private func getWeather() {
     var tempList: [CurrentWeather] = []
@@ -72,7 +78,6 @@ final class WeatherMainViewModel {
   private func syncWeather() {
     timer = Timer.scheduledTimer(withTimeInterval: 3, repeats: true) { [weak self] _ in
       guard let self = self else {return }
-      print("*********** START ***********")
       self.getWeather()
     }
   }
@@ -94,3 +99,4 @@ final class WeatherMainViewModel {
   }
   
 }
+

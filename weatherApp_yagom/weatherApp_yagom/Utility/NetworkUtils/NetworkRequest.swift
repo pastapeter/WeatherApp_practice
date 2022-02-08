@@ -34,6 +34,7 @@ final class NetworkRequest {
   
   static func requestWithEpemeral(url: String, completion: @escaping URLSessionResult) {
     print(url)
+    
     URLSession(configuration: .ephemeral).dataTask(with: URL(string: url)!) { (data, response, error) in
       if let error = error {
         completion(.failure(error))
@@ -55,3 +56,4 @@ final class NetworkRequest {
   }
   
 }
+

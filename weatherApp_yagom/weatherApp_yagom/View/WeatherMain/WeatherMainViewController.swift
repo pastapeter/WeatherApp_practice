@@ -68,6 +68,10 @@ final class WeatherMainViewController: UIViewController {
     tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
     
   }
+  
+  deinit {
+    print(self, "사라졌습니다.")
+  }
 
 }
 
@@ -94,11 +98,10 @@ extension WeatherMainViewController: UITableViewDataSource {
 
 extension WeatherMainViewController: UITableViewDelegate {
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    viewModel.stopSync()
-    let cityName = datasource[indexPath.row].name
-    viewModel.selectedCity = cityName
-    let vc = makeWeatherDetailVCFactory.makeWeatherDetailViewController()
+    viewModel.select(item: datasource[indexPath.row])
+    let vc = makeWeatherDetailVCFactory.makeWeatherDetailViewController(selectedCity: viewModel.selectedCity)
     self.navigationController?.pushViewController(vc, animated: true)
   }
 }
+
 

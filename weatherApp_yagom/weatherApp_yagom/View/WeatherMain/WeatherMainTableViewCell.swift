@@ -9,6 +9,15 @@ import UIKit
 
 final class WeatherMainTableViewCell: UITableViewCell, NibLoadableView {
   
+  var viewModel: WeatherMainCellModel? {
+    didSet {
+      guard let viewModel = viewModel else { return }
+      currentHumidLabel.text = "\(viewModel.currentHumid)%"
+      currentTemperatureLabel.text = String(format: "%.2f℃", viewModel.currentTemperature)
+      cityNameLabel.text = "\(viewModel.name)"
+    }
+  }
+  
   @IBOutlet weak var weatherImageView: UIImageView!
   @IBOutlet weak var cityNameLabel: UILabel!
   @IBOutlet weak var currentTemperatureLabel: UILabel!
@@ -16,15 +25,15 @@ final class WeatherMainTableViewCell: UITableViewCell, NibLoadableView {
   
   override func awakeFromNib() {
     super.awakeFromNib()
+    
   }
   
 }
 
 extension WeatherMainTableViewCell {
   func bind(cellModel: WeatherMainCellModel) {
-    currentHumidLabel.text = "\(cellModel.currentHumid)%"
-    currentTemperatureLabel.text = String(format: "%.2f℃", cellModel.currentTemperature)
-    cityNameLabel.text = "\(cellModel.name)"
+    self.viewModel = cellModel
   }
 }
+
 
