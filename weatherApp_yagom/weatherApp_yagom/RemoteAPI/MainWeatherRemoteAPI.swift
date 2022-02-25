@@ -6,8 +6,35 @@
 //
 
 import Foundation
+import RxSwift
+import RxCocoa
 
 final class MainWeatherRemoteAPI: WeatherRemoteAPI  {
+  
+  @discardableResult
+  func fetchCityCurrentWeather(in city: String) -> Observable<CurrentWeather?> {
+    makeURL(with: city, inCurrent: true)
+      .flatMap { urlRequest -> Observable<Data> in
+        return URLSession.shared.rx.data(request: urlRequest)
+      }
+      .map { data -> CurrentWeather? in
+        return self.networkCoder.getResponse(data: data, style: CurrentWeather.self)
+      }
+      .catchAndReturn(nil)
+  }
+  
+  @discardableResult
+  func fetchFutureWeather(in city: String) -> Observable<FutureWeather?> {
+    makeURL(with: city, inCurrent: false)
+      .flatMap { urlRequest -> Observable<Data> in
+        return URLSession.shared.rx.data(request: urlRequest)
+      }
+      .map { data -> FutureWeather? in
+        return self.networkCoder.getResponse(data: data, style: FutureWeather.self)
+      }
+      .catchAndReturn(nil)
+  }
+  
   
   public func fetchCityCurrentWeather(in city: String, completion: @escaping(CurrentWeather) -> ()) {
     let url = makeURL(with: city, isCurrent: true)
@@ -51,6 +78,20 @@ final class MainWeatherRemoteAPI: WeatherRemoteAPI  {
       currentParam = "forecast"
     }
     return baseUrl + "data/2.5/\(currentParam)?q=\(cityname)&appid=\(key)"
+  }
+  
+  // URLRequest를 Observable로 내보내기
+  private func makeURL(with cityname: String, inCurrent: Bool) -> Observable<URLRequest> {
+    
+    var currentParam = "weather"
+    if inCurrent == false {
+      currentParam = "forecast"
+    }
+    let urlStr = baseUrl + "data/2.5/\(currentParam)?q=\(cityname)&appid=\(key)"
+    
+    return Observable.just(urlStr)
+      .compactMap {URL(string: $0)}
+      .map {URLRequest(url: $0)}
   }
   
 }

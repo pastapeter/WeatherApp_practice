@@ -6,8 +6,13 @@
 //
 
 import Foundation
+import RxSwift
+import RxCocoa
 
 public protocol CurrentWeatherRepository: AnyObject {
   func currentWeather(in city: String, completion: @escaping(CurrentWeather)->Void)
+  
+  @discardableResult
+  func currentWeather(in city: String) -> Observable<CurrentWeather>
 }
 
