@@ -14,7 +14,6 @@ final class WeatherRepository: CurrentWeatherRepository, FutureWeatherRepository
   //MARK: - private
 
   private let remoteAPI: WeatherRemoteAPI
-  private let currentWeather = PublishRelay<CurrentWeather>()
   private let futureWeather = PublishRelay<FutureWeather>()
   private let disposeBag = DisposeBag()
   
@@ -24,12 +23,10 @@ final class WeatherRepository: CurrentWeatherRepository, FutureWeatherRepository
   
   @discardableResult
   func currentWeather(in city: String) -> Observable<CurrentWeather> {
-    remoteAPI.fetchCityCurrentWeather(in: city)
+   return remoteAPI.fetchCityCurrentWeather(in: city)
       .compactMap { $0 }
-      .bind(to: currentWeather)
-      .disposed(by: disposeBag)
-    
-    return currentWeather.asObservable()
+      .share()
+      .asObservable()
   }
   
   @discardableResult
@@ -41,7 +38,7 @@ final class WeatherRepository: CurrentWeatherRepository, FutureWeatherRepository
     
     return futureWeather.asObservable()
   }
-  
+
   
   func currentWeather(in city: String, completion: @escaping (CurrentWeather) -> ()) {
     remoteAPI.fetchCityCurrentWeather(in: city, completion: completion)
