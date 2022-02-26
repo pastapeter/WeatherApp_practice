@@ -57,6 +57,7 @@
 		28130FB827A7956700A4BD5E /* MainWeatherRemoteAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28130FB727A7956700A4BD5E /* MainWeatherRemoteAPI.swift */; };
 		28130FBB27A799C500A4BD5E /* APIInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28130FBA27A799C500A4BD5E /* APIInfo.swift */; };
 		28130FBE27A79BD300A4BD5E /* WeatherRemoteAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28130FBD27A79BD300A4BD5E /* WeatherRemoteAPI.swift */; };
+		28DDA81E27CA2068008F6278 /* ViewModelBindableType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28DDA81D27CA2068008F6278 /* ViewModelBindableType.swift */; };
 		AF91560BAFD73D06E21BA688 /* Pods_weatherApp_yagomTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8B5301C60FFFDF84F5F480F /* Pods_weatherApp_yagomTests.framework */; };
 		DDD8A4A2E45090FAAB37447A /* Pods_weatherApp_yagom.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C40D47D2FE261EA12CFD0F97 /* Pods_weatherApp_yagom.framework */; };
 /* End PBXBuildFile section */
@@ -135,6 +136,7 @@
 		28130FB727A7956700A4BD5E /* MainWeatherRemoteAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainWeatherRemoteAPI.swift; sourceTree = "<group>"; };
 		28130FBA27A799C500A4BD5E /* APIInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIInfo.swift; sourceTree = "<group>"; };
 		28130FBD27A79BD300A4BD5E /* WeatherRemoteAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherRemoteAPI.swift; sourceTree = "<group>"; };
+		28DDA81D27CA2068008F6278 /* ViewModelBindableType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewModelBindableType.swift; sourceTree = "<group>"; };
 		38EF8322F6EA9C20BDA23F84 /* Pods-weatherApp_yagom.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-weatherApp_yagom.release.xcconfig"; path = "Target Support Files/Pods-weatherApp_yagom/Pods-weatherApp_yagom.release.xcconfig"; sourceTree = "<group>"; };
 		45C6A7A11B4BB56593582F1C /* Pods-weatherApp_yagomTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-weatherApp_yagomTests.release.xcconfig"; path = "Target Support Files/Pods-weatherApp_yagomTests/Pods-weatherApp_yagomTests.release.xcconfig"; sourceTree = "<group>"; };
 		74646C6F1CDA244A8FF3F44A /* Pods-weatherApp_yagom-weatherApp_yagomUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-weatherApp_yagom-weatherApp_yagomUITests.debug.xcconfig"; path = "Target Support Files/Pods-weatherApp_yagom-weatherApp_yagomUITests/Pods-weatherApp_yagom-weatherApp_yagomUITests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -207,6 +209,7 @@
 		2800401B27A8243E006AC450 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				28DDA81D27CA2068008F6278 /* ViewModelBindableType.swift */,
 				28130FB327A6E19C00A4BD5E /* WeatherMainViewModel.swift */,
 				28130FA727A6CFA500A4BD5E /* WeatherMainCellModel.swift */,
 				2800401627A7D57C006AC450 /* WeatherDetailViewModel.swift */,
@@ -697,6 +700,7 @@
 				2800401327A7D450006AC450 /* WeatherDetailViewController.swift in Sources */,
 				28130F9C27A6CAD300A4BD5E /* UITableView+Extension.swift in Sources */,
 				2800400C27A7CA3A006AC450 /* NetworkRequest.swift in Sources */,
+				28DDA81E27CA2068008F6278 /* ViewModelBindableType.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
