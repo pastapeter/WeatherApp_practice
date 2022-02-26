@@ -6,6 +6,8 @@
 //
 
 import Foundation
+import RxSwift
+import RxCocoa
 
 final class WeatherMainViewModel {
   
@@ -23,14 +25,10 @@ final class WeatherMainViewModel {
     cityList = CityName.allCases.map {
       $0.rawValue
     }
-    getWeather()
-    syncWeather()
   }
   
   func restartSync() {
     if let timer = timer, timer.isValid == false {
-      getWeather()
-      syncWeather()
     }
   }
   
@@ -52,34 +50,44 @@ final class WeatherMainViewModel {
   
   private var cityList: [String] = []
   private var timer: Timer?
+  private var disposeBag = DisposeBag()
   
   private func stopSync() {
     if let timer = timer, timer.isValid {
       timer.invalidate()
     }
   }
-
   
-  private func getWeather() {
-    var tempList: [CurrentWeather] = []
-    self.cityList.enumerated().forEach { (index, city) in
-      self.respository.currentWeather(in: city) { [weak self] weatherInfo in
-        guard let self = self else { return }
-        var weatherInfo = weatherInfo
-        weatherInfo.name = city
-        tempList.append(weatherInfo)
-        if tempList.count == self.cityList.count {
-          self.dataList = tempList
-        }
-      }
+  // 연산자를 활용해서 SyncWeather과 합칠 예정
+  func getWeatherWithRx() -> Driver<[WeatherMainCellModel]> {
+  
+    let tempRelay = PublishRelay<CurrentWeather>()
+    var list = [WeatherMainCellModel]()
+    
+    cityList.forEach { city in
+      self.respository.currentWeather(in: city)
+        .bind(to: tempRelay)
+        .disposed(by: disposeBag)
     }
+    
+    return tempRelay
+      .withUnretained(self)
+      .map({ (viewmodel, currentweather) -> [WeatherMainCellModel] in
+        list.append(viewmodel.convertToCellModelRx(item: currentweather)!)
+        return list
+      })
+      .skip(while: { [weak self] in
+        guard let self = self else {return false}
+        return $0.count != self.cityList.count} )
+      .asDriver(onErrorJustReturn: [])
   }
   
-  private func syncWeather() {
-    timer = Timer.scheduledTimer(withTimeInterval: 3, repeats: true) { [weak self] _ in
-      guard let self = self else {return }
-      self.getWeather()
-    }
+  private func convertToCellModelRx(item: CurrentWeather) -> WeatherMainCellModel? {
+      if let main = item.main {
+        let cellmodel = WeatherMainCellModel(name: item.name, currentTemperature: main.temp, currentHumid: main.humidity, imageUrl: APIInfo.iconUrl + item.weather[0].icon + ".png")
+        return cellmodel
+        }
+    return nil
   }
   
   private func convertToCellModel(){
