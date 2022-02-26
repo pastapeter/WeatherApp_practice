@@ -6,8 +6,10 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
-final class WeatherMainViewController: UIViewController {
+final class WeatherMainViewController: UIViewController, ViewModelBindableType {
   
   //MARK: - UI
 
@@ -18,19 +20,28 @@ final class WeatherMainViewController: UIViewController {
     tableview.translatesAutoresizingMaskIntoConstraints = false
     return tableview
   }()
+  
+  //MARK: - Binding
+  
+  func bindViewModel() {
+    viewModel.getWeatherWithRx()
+      .drive(tableView.rx.items(cellIdentifier: WeatherMainTableViewCell.identifier, cellType: WeatherMainTableViewCell.self)) { [weak self] (index, element, cell) in
+        cell.bind(cellModel: element)
+        self?.imageCache.getIcon(with: element.imageUrl, completion: { (image) in
+          if let image = image {
+            cell.weatherImageView.image = image
+          }
+        })
+      }
+      .disposed(by: disposeBag)
+  }
+
 
   //MARK: - LifeCycle
 
   override func viewDidLoad() {
     super.viewDidLoad()
     setTableView()
-    viewModel.updatedUI = { [weak self] in
-      guard let self = self else {return}
-      DispatchQueue.main.async {
-        self.datasource = self.viewModel.datasource
-        self.tableView.reloadData()
-      }
-    }
   }
   
   override func viewWillAppear(_ animated: Bool) {
@@ -39,7 +50,7 @@ final class WeatherMainViewController: UIViewController {
 
   //MARK: - Private
   private var datasource: [WeatherMainCellModel] = []
-  private let viewModel: WeatherMainViewModel
+  var viewModel: WeatherMainViewModel
   
   //factory
   private let makeWeatherDetailVCFactory: WeatherDetailViewControllerFactory
@@ -47,11 +58,15 @@ final class WeatherMainViewController: UIViewController {
   //imageCache
   private var imageCache: ImageCache
   
+  //disposebag
+  private var disposeBag = DisposeBag()
+  
   public init(viewModel: WeatherMainViewModel, weatherDetailViewControllerFactory: WeatherDetailViewControllerFactory, imageCache: ImageCache) {
     self.viewModel = viewModel
     self.makeWeatherDetailVCFactory = weatherDetailViewControllerFactory
     self.imageCache = imageCache
     super.init(nibName: nil, bundle: nil)
+    self.bind(viewModel: self.viewModel)
   }
   
   required public init?(coder: NSCoder) {
@@ -59,8 +74,6 @@ final class WeatherMainViewController: UIViewController {
   }
   
   private func setTableView() {
-    tableView.dataSource = self
-    tableView.delegate = self
     view.addSubview(tableView)
     tableView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
     tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
@@ -74,34 +87,4 @@ final class WeatherMainViewController: UIViewController {
   }
 
 }
-
-//MARK: - Tableview datasource
-
-extension WeatherMainViewController: UITableViewDataSource {
-  func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return datasource.count
-  }
-  
-  func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    guard let cell = tableView.dequeueReusableCell(withIdentifier: WeatherMainTableViewCell.identifier, for: indexPath) as? WeatherMainTableViewCell else {return WeatherMainTableViewCell()}
-    cell.bind(cellModel: datasource[indexPath.row])
-    imageCache.getIcon(with: datasource[indexPath.row].imageUrl, completion: { (image) in
-      if let image = image {
-        cell.weatherImageView.image = image
-      }
-    })
-    return cell
-  }
-
-}
-//MARK: - Tableview delegate
-
-extension WeatherMainViewController: UITableViewDelegate {
-  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    viewModel.select(item: datasource[indexPath.row])
-    let vc = makeWeatherDetailVCFactory.makeWeatherDetailViewController(selectedCity: viewModel.selectedCity)
-    self.navigationController?.pushViewController(vc, animated: true)
-  }
-}
-
 
