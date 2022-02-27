@@ -42,12 +42,8 @@ Repository Pattern을 활용해서 `WeatherRepository` 를 사용하는 특정 �
 
 `WeatherMainViewModel`은 `CurrentWeatherRepository`에서 3초마다 데이터를 가져와서 현재 날씨를 계속 동기화한다. 이러한 동기화된 데이터를 `WeatherMainViewController`에서 아이콘을 보여줄 때, `ImageCache` 구현체를 활용해서 이미지를 캐싱을 사용했고, 그리고 `WeatherMainViewController`에서 `WeatherDetailViewController`로 화면전환이 필요할시, `WeatherDetailViewControllerFactory`를 사용해서 만들고 네이게이션을 활용해서 화면전환을 했다.
 
-### WeatherMain화면
 
-![Simulator_Screen_Shot_-_iPhone_13_-_2022-02-02_at_16 09 22](https://user-images.githubusercontent.com/69891604/152113607-62a80a9f-c51f-40b2-a0f1-dec6529de80f.png)
-
-
-## `WeatherDetailDependencyContainer`
+### `WeatherDetailDependencyContainer`
 
 ![Untitled 4](https://user-images.githubusercontent.com/69891604/152113636-00c43250-9132-4ff3-94d0-cfb9d7110025.png)
 
@@ -57,12 +53,8 @@ Repository Pattern을 활용해서 `WeatherRepository` 를 사용하는 특정 �
 
 그리고 미래 날씨를 누르게 되면, Modal 형태로, `FutureWeatherViewController`를 띄우게 했다.
 
-### WeatherDetail화면
 
-![Simulator_Screen_Shot_-_iPhone_13_-_2022-02-02_at_16 09 27](https://user-images.githubusercontent.com/69891604/152113676-5deb9f29-2ac4-4c8b-b225-9e80cb19a99b.png)
-
-
-## `FutureWeatherDependencyContainer`
+### `FutureWeatherDependencyContainer`
 
 ![Untitled 5](https://user-images.githubusercontent.com/69891604/152113696-1de663ad-730e-49a4-8384-04e6dd6cee36.png)
 
@@ -70,5 +62,3 @@ Repository Pattern을 활용해서 `WeatherRepository` 를 사용하는 특정 �
 `FutureWeatherViewController`에서는 `FutureWeatherViewModel`을 의존, `FutureWeatherViewModel`은 `FutureWeatherRepository`를 의존한다. `FutureWeatherViewModel`에서는 `FutureWeatherViewController`에서 그려줄 꺽은선 그래프를 그리는 데 필요한 정보들을 정제해서 제공한다. 이 데이터는 `FutureWeatherTableViewCell`에 @IBOutlet으로 정의되어있는 lineChart에 바인딩된다. 
 
 `FutureWeatherViewModel`의 `syncWeather()`이라는 함수는 다른 ViewModel과는 다르게 매 초마다 데이터를 요구하지않는다. 1분마다 현재 날짜와 미리캐싱한 데이터(viewModel에서 상태를 저장하고 있다.)를 비교한다. 그리고 만약 미리 캐싱한 데이터의 첫 데이터의 날짜 및 시간이, 현재 날짜 및 시간보다 늦을때, 즉 일기예보가 되지 않을떄 다시 데이터를 요청한다.
-
-![Simulator_Screen_Shot_-_iPhone_13_-_2022-02-02_at_00 57 04](https://user-images.githubusercontent.com/69891604/152113716-63661e0f-d90e-4670-a199-bd5af9565056.png)
