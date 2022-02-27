@@ -6,24 +6,16 @@
 //
 
 import Foundation
+import RxSwift
+import RxCocoa
 
 final class WeatherDetailViewModel {
   
   public init(weatherRepository: CurrentWeatherRepository, cityName: String) {
     self.weatherRepository = weatherRepository
     self.cityName = cityName
-    getWeather()
-    syncWeather()
   }
-  
-  var updateUI: (() -> ())?
-  
-  var weatherInfo: DetailWeatherInfo  = DetailWeatherInfo() {
-    didSet {
-      updateUI?()
-    }
-  }
-  
+
   func stopSync() {
     if let timer = timer, timer.isValid {
       timer.invalidate()
@@ -31,57 +23,42 @@ final class WeatherDetailViewModel {
   }
   
   func restartSync() {
-    if let timer = timer, timer.isValid == false {
-      getWeather()
-      syncWeather()
-    }
+    
   }
   
   let cityName: String
   
+  var weatherInfo: Driver<[String]> {
+    
+    let tempRelay = PublishRelay<[String]>()
+    
+    Observable<Int>
+      .timer(.milliseconds(10), period: .seconds(3), scheduler: MainScheduler.instance)
+      .withUnretained(self)
+      .subscribe { (viewmodel, index) in
+        viewmodel.weatherRepository.currentWeather(in: viewmodel.cityName)
+          .subscribe(onNext: { weather in
+            var info = [String]()
+            if let main = weather.main, let wind = weather.wind {
+              info = [viewmodel.cityName, APIInfo.iconUrl+weather.weather[0].icon+".png", main.temp, main.feelsLikeTemp, main.tempMin, main.tempMax, main.pressure, main.humidity, wind.speed ?? -100, weather.weather[0].description].map { "\($0)"}
+              tempRelay.accept(info)
+            }
+          })
+          .disposed(by: viewmodel.disposeBag)
+      }
+      .disposed(by: disposeBag)
+    
+    return tempRelay
+      .asDriver(onErrorJustReturn: [])
+  }
+  
   //MARK: - private
-  private weak var weatherRepository: CurrentWeatherRepository?
+  private var weatherRepository: CurrentWeatherRepository
   private var timer: Timer?
-  
-  private func getWeather() {
-    guard let weatherRepository = weatherRepository else {
-      return
-    }
-    weatherRepository.currentWeather(in: cityName) { [weak self] weather in
-      guard let self = self else {return}
-      guard let main = weather.main, let wind = weather.wind else {return}
-      self.weatherInfo = DetailWeatherInfo(temp: main.temp, imageUrl: APIInfo.iconUrl+weather.weather[0].icon+".png", feelsLike: main.feelsLikeTemp,
-                                           tempMin: main.tempMin, tempMax: main.tempMax,
-                                           pressure: main.pressure, humidity: main.humidity,
-                                           windSpeed: wind.speed ?? -100,
-                                           description: weather.weather[0].description)
-    }
-  }
-  
-  private func syncWeather() {
-    timer = Timer.scheduledTimer(withTimeInterval: 3, repeats: true) { [weak self] _ in
-      guard let self = self else {return}
-      self.getWeather()
-    }
-  }
+  private var disposeBag = DisposeBag()
   
 }
 
-extension WeatherDetailViewModel {
   
-  // WeatherDetailViewModel에서만 선언가능한 구조체
-  struct DetailWeatherInfo {
-    var temp: Double = 0.0
-    var imageUrl: String = ""
-    var feelsLike: Double = 0.0
-    var tempMin: Double = 0
-    var tempMax: Double = 0.0
-    var pressure: Int = 0
-    var humidity: Double = 0.0
-    var windSpeed: Double = 0.0
-    var description: String = ""
-  }
-  
-}
 
 
