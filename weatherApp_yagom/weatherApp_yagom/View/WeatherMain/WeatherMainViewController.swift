@@ -24,7 +24,8 @@ final class WeatherMainViewController: UIViewController, ViewModelBindableType {
   //MARK: - Binding
   
   func bindViewModel() {
-    viewModel.getWeatherWithRx()
+    
+    viewModel.weatherInfo
       .drive(tableView.rx.items(cellIdentifier: WeatherMainTableViewCell.identifier, cellType: WeatherMainTableViewCell.self)) { [weak self] (index, element, cell) in
         cell.bind(cellModel: element)
         self?.imageCache.getIcon(with: element.imageUrl, completion: { (image) in
@@ -34,18 +35,25 @@ final class WeatherMainViewController: UIViewController, ViewModelBindableType {
         })
       }
       .disposed(by: disposeBag)
+    
+    tableView.rx.modelSelected(WeatherMainCellModel.self)
+      .subscribe(onNext: { [weak self] in
+        guard let self = self else {return}
+        self.viewModel.select(item: $0)
+        self.navigationController?
+          .pushViewController(self.makeWeatherDetailVCFactory
+          .makeWeatherDetailViewController(selectedCity: self.viewModel.selectedCity),
+                              animated: true)
+      })
+      .disposed(by: disposeBag)
+    
   }
-
-
+  
   //MARK: - LifeCycle
 
   override func viewDidLoad() {
     super.viewDidLoad()
     setTableView()
-  }
-  
-  override func viewWillAppear(_ animated: Bool) {
-    viewModel.restartSync()
   }
 
   //MARK: - Private
@@ -66,7 +74,7 @@ final class WeatherMainViewController: UIViewController, ViewModelBindableType {
     self.makeWeatherDetailVCFactory = weatherDetailViewControllerFactory
     self.imageCache = imageCache
     super.init(nibName: nil, bundle: nil)
-    self.bind(viewModel: self.viewModel)
+    bind(viewModel: self.viewModel)
   }
   
   required public init?(coder: NSCoder) {
@@ -79,7 +87,6 @@ final class WeatherMainViewController: UIViewController, ViewModelBindableType {
     tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
     tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
     tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-    
   }
   
   deinit {
