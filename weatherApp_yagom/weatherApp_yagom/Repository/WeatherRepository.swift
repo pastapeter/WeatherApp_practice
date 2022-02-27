@@ -40,13 +40,13 @@ final class WeatherRepository: CurrentWeatherRepository, FutureWeatherRepository
   }
 
   
-  func currentWeather(in city: String, completion: @escaping (CurrentWeather) -> ()) {
-    remoteAPI.fetchCityCurrentWeather(in: city, completion: completion)
-  }
-  
-  func futureWeather(in city: String, completion: @escaping (FutureWeather) -> ()) {
-    remoteAPI.fetchFutureWeather(in: city, completion: completion)
-  }
+//  func currentWeather(in city: String, completion: @escaping (CurrentWeather) -> ()) {
+//    remoteAPI.fetchCityCurrentWeather(in: city, completion: completion)
+//  }
+//
+//  func futureWeather(in city: String, completion: @escaping (FutureWeather) -> ()) {
+//    remoteAPI.fetchFutureWeather(in: city, completion: completion)
+//  }
   
 }
 
