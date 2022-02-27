@@ -6,9 +6,10 @@
 //
 
 import UIKit
+import RxSwift
 
-class FutureWeatherViewController: UIViewController {
-  
+class FutureWeatherViewController: UIViewController, ViewModelBindableType {
+
   //MARK: - UI
   
   private let tableView = UITableView()
@@ -31,10 +32,9 @@ class FutureWeatherViewController: UIViewController {
   private func setUptableView() {
     
     tableView.separatorStyle = .none
-    tableView.register(FutureWeatherTableViewCell.self)
-    
-    tableView.delegate = self
     tableView.dataSource = self
+    tableView.register(FutureWeatherTableViewCell.self)
+
     tableView.translatesAutoresizingMaskIntoConstraints = false
     
     view.addSubview(tableView)
@@ -56,12 +56,7 @@ class FutureWeatherViewController: UIViewController {
   init(viewModel: FutureWeatherViewModel) {
     self.viewModel = viewModel
     super.init(nibName: nil, bundle: nil)
-    viewModel.updateUI = { [weak self] in
-      guard let self = self else {return}
-      DispatchQueue.main.async { 
-        self.tableView.reloadRows(at: [IndexPath(row: 1, section: 0)], with: .none)
-      }
-    }
+    bind(viewModel: self.viewModel)
   }
   
   required init?(coder: NSCoder) {
@@ -78,9 +73,25 @@ class FutureWeatherViewController: UIViewController {
     // Do any additional setup after loading the view.
   }
   
+  //MARK: - Viewmodel & bind
+  var viewModel: FutureWeatherViewModel
+  
+  func bindViewModel() {
+    viewModel.entries
+      .drive(onNext: { [weak self] in
+        self?.tempMinEntry = $0.tempMin
+        self?.humidEntry = $0.humid
+        self?.tempMaxEntry = $0.tempMax
+        self?.tableView.reloadData()
+      })
+      .disposed(by: disposeBag)
+  }
   
   //MARK: - Private
-  private var viewModel: FutureWeatherViewModel
+  private var disposeBag = DisposeBag()
+  private var tempMaxEntry = [PointEntry]()
+  private var humidEntry = [PointEntry]()
+  private var tempMinEntry = [PointEntry]()
 }
 
 extension FutureWeatherViewController: UITableViewDataSource {
@@ -93,19 +104,17 @@ extension FutureWeatherViewController: UITableViewDataSource {
     
     if indexPath.row == 0 {
       cell.lineChart.isHidden = true
-      cell.cityLabel.text = self.viewModel.cityname
+      cell.cityLabel.text = self.viewModel.city
     } else {
       cell.cityLabel.text = nil
       cell.lineChart.isHidden = false
-      cell.lineChart.maxTempDataEntries = viewModel.generateEntries(with: .tempMax)
-      cell.lineChart.humidDataEntries = viewModel.generateEntries(with: .humid)
-      cell.lineChart.minTempDataEntries = viewModel.generateEntries(with: .tempMin)
+      cell.lineChart.humidDataEntries = humidEntry
+      cell.lineChart.minTempDataEntries = tempMinEntry
+      cell.lineChart.maxTempDataEntries = tempMaxEntry
     }
-    
     return cell
   }
-  
-  
+
 }
 
 extension FutureWeatherViewController: UITableViewDelegate {
