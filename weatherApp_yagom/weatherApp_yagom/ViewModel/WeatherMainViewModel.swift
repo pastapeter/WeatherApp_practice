@@ -21,7 +21,7 @@ final class WeatherMainViewModel {
   }
   
   func restart() -> Driver<[WeatherMainCellModel]> {
-    return getWeatherWithRx()
+    return weatherInfo
   }
   
   func select(item:WeatherMainCellModel) {
@@ -42,13 +42,17 @@ final class WeatherMainViewModel {
   }
   
   // 연산자를 활용해서 SyncWeather과 합칠 예정
-  func getWeatherWithRx() -> Driver<[WeatherMainCellModel]> {
+  var weatherInfo: Driver<[WeatherMainCellModel]> {
     
     let tempRelay = PublishRelay<[WeatherMainCellModel]>()
     var list = [WeatherMainCellModel]()
     
+    //Timer 는 Main에서 돈다.
+    //Main에서 돌다가 repository.currentWeather는 UrlSession이니깐 자동으로 backgroundQueue
+    //그러다가 driver를 통해서 share()도 되고, 다시 mainqueue에서 돌게됨 
+    
     Observable<Int>
-      .timer(.seconds(1), period: .seconds(5), scheduler: MainScheduler.asyncInstance)
+      .timer(.seconds(0), period: .seconds(10), scheduler: MainScheduler.instance)
       .withUnretained(self)
       .filter { _ in list.count == 0 }
       .subscribe(onNext: { viewModel, int in
