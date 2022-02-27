@@ -1,13 +1,25 @@
 # WeatherApp
 
-### Dependency Containers
+<img width="648" alt="스크린샷 2022-02-28 오전 12 24 34" src="https://user-images.githubusercontent.com/69891604/155888518-8a36a533-ad83-4733-b24f-3ef7a9b7a001.png">
+
+
+## WeatehrApp의 목표(1차)
+1. Dependency Container를 사용해서 의존성 주입하기 [X]
+2. 의존성 역치를 통해서 Testable한 코드 작성하기 [X]
+3. MVVM으로 작성하기 [X]
+
+## WeatherApp의 목표(2차)
+1. Rxswift으로 Refactoring
+2. Test code 작성해보기
+
+### Dependency Containers 
 
 WeatherApp_정도현에는 DependencyContainer는 3개가 존재합니다. `WeatherMainDependency`가 최상위 DependencyContainer이고, 아래로 내려갈수록 하위 DependencyContainer로 볼 수 있습니다. 하위 컨테이너로 넘어가면서, 부모로부터 필요한 의존성을 받을뿐 아니라, 새롭게 필요한 의존성을 만들어서, 만들어야할 객체에 주입합니다.
 
 ![Untitled](https://user-images.githubusercontent.com/69891604/152113481-4482caca-2496-4ca0-9d01-53f1688f70cc.png)
 
 
-## `WeatherMainDependencyContainer`
+### `WeatherMainDependencyContainer`
 
 `WeatherMainViewController`가 보여질 수 있도록 필요한 의존성을 주입해주는 DI Container입니다.  이 컨테이너에서는 아래와 같은 의존성 그래프가 그려진다. 
 
