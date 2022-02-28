@@ -33,7 +33,7 @@ final class WeatherDetailViewModel {
     let tempRelay = PublishRelay<[String]>()
     
     Observable<Int>
-      .timer(.milliseconds(10), period: .seconds(3), scheduler: MainScheduler.instance)
+      .timer(.milliseconds(0), period: .seconds(3), scheduler: MainScheduler.instance)
       .withUnretained(self)
       .subscribe { (viewmodel, index) in
         viewmodel.weatherRepository.currentWeather(in: viewmodel.cityName)
@@ -58,7 +58,4 @@ final class WeatherDetailViewModel {
   private var disposeBag = DisposeBag()
   
 }
-
-  
-
 

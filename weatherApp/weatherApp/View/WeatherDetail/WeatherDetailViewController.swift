@@ -21,6 +21,13 @@ class WeatherDetailViewController: UIViewController, ViewModelBindableType {
     let button = UIBarButtonItem(title: "미래날씨", style: .plain, target: self, action: #selector(gotoFutureWeatherVC(_:)))
     return button
   }()
+  
+  lazy var backbutton: UIBarButtonItem = {
+    let button = UIBarButtonItem(title: "back", style: .plain, target: self, action: #selector(closeVC(_:)))
+    return button
+  }()
+  
+
 
   //MARK: - Binding
   
@@ -44,7 +51,7 @@ class WeatherDetailViewController: UIViewController, ViewModelBindableType {
         }
       }
       .disposed(by: disposeBag)
-  }
+      }
 
   //MARK: - init
 
@@ -69,10 +76,19 @@ class WeatherDetailViewController: UIViewController, ViewModelBindableType {
     setupTableView()
   }
   
+  @objc func closeVC(_ sender: UIBarButtonItem) {
+    self.navigationController?.popViewController(animated: true)
+    
+  }
+  
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
-    viewModel.restartSync()
   }
+  
+  deinit {
+    disposeBag = DisposeBag()
+  }
+  
   
   //MARK: - Private
   
@@ -83,6 +99,8 @@ class WeatherDetailViewController: UIViewController, ViewModelBindableType {
   
   private func setupBarbutton() {
     navigationItem.rightBarButtonItem = futureWeatherButton
+    navigationItem.hidesBackButton = true
+    navigationItem.leftBarButtonItem = backbutton
   }
   
   private func setupTableView() {
@@ -106,4 +124,5 @@ class WeatherDetailViewController: UIViewController, ViewModelBindableType {
   }
   
 }
+
 
