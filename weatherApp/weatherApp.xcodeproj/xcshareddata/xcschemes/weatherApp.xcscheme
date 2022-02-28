@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "28130F6227A6C1A200A4BD5E"
-               BuildableName = "weatherApp_yagom.app"
-               BlueprintName = "weatherApp_yagom"
-               ReferencedContainer = "container:weatherApp_yagom.xcodeproj">
+               BuildableName = "weatherApp.app"
+               BlueprintName = "weatherApp"
+               ReferencedContainer = "container:weatherApp.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "28130F7827A6C1A300A4BD5E"
-               BuildableName = "weatherApp_yagomTests.xctest"
-               BlueprintName = "weatherApp_yagomTests"
-               ReferencedContainer = "container:weatherApp_yagom.xcodeproj">
+               BuildableName = "weatherAppTests.xctest"
+               BlueprintName = "weatherAppTests"
+               ReferencedContainer = "container:weatherApp.xcodeproj">
             </BuildableReference>
          </TestableReference>
          <TestableReference
@@ -43,9 +43,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "28130F8227A6C1A300A4BD5E"
-               BuildableName = "weatherApp_yagomUITests.xctest"
-               BlueprintName = "weatherApp_yagomUITests"
-               ReferencedContainer = "container:weatherApp_yagom.xcodeproj">
+               BuildableName = "weatherAppUITests.xctest"
+               BlueprintName = "weatherAppUITests"
+               ReferencedContainer = "container:weatherApp.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -65,9 +65,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "28130F6227A6C1A200A4BD5E"
-            BuildableName = "weatherApp_yagom.app"
-            BlueprintName = "weatherApp_yagom"
-            ReferencedContainer = "container:weatherApp_yagom.xcodeproj">
+            BuildableName = "weatherApp.app"
+            BlueprintName = "weatherApp"
+            ReferencedContainer = "container:weatherApp.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -99,9 +99,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "28130F6227A6C1A200A4BD5E"
-            BuildableName = "weatherApp_yagom.app"
-            BlueprintName = "weatherApp_yagom"
-            ReferencedContainer = "container:weatherApp_yagom.xcodeproj">
+            BuildableName = "weatherApp.app"
+            BlueprintName = "weatherApp"
+            ReferencedContainer = "container:weatherApp.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
