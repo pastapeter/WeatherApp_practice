@@ -12,6 +12,82 @@
 1. Rxswift으로 Refactoring
 2. Test code 작성해보기
 
+
+## Foldering
+```bash
+├── App
+│   ├── AppDelegate.swift
+│   ├── Assets.xcassets
+│   │   ├── AccentColor.colorset
+│   │   │   └── Contents.json
+│   │   ├── AppIcon.appiconset
+│   │   │   └── Contents.json
+│   │   └── Contents.json
+│   ├── Base.lproj
+│   │   └── LaunchScreen.storyboard
+│   ├── Info.plist
+│   └── SceneDelegate.swift
+├── DependencyContainer
+│   ├── FutureWeatherDependencyContainer.swift
+│   ├── WeatherDetailDependencyContainer.swift
+│   └── WeatherMainDependencyContainer.swift
+├── Model
+│   ├── CityName.swift
+│   ├── CurrentWeather.swift
+│   ├── Forecast.swift
+│   ├── FutureWeather.swift
+│   ├── MainWeatherInfo.swift
+│   ├── Weather.swift
+│   └── Wind.swift
+├── RemoteAPI
+│   ├── MainWeatherRemoteAPI.swift
+│   └── WeatherRemoteAPI.swift
+├── Repository
+│   ├── CurrentWeatherRepository.swift
+│   ├── FutureWeatherRepository.swift
+│   └── WeatherRepository.swift
+├── Utility
+│   ├── DateUtils
+│   │   └── Date+Extension.swift
+│   ├── ImageCache
+│   │   ├── ImageCache.swift
+│   │   └── ImageCacher.swift
+│   ├── NetworkUtils
+│   │   ├── APIInfo.swift
+│   │   ├── NetworkCoder.swift
+│   │   ├── NetworkCoding.swift
+│   │   ├── NetworkError.swift
+│   │   └── NetworkRequest.swift
+│   ├── StringUtils
+│   │   └── String+Extension.swift
+│   └── ViewUtils
+│       ├── LineChart.swift
+│       ├── NibLoadableView.swift
+│       ├── PointEntry.swift
+│       ├── ReusableView.swift
+│       ├── UITableView+Extension.swift
+│       └── UIView+Extension.swift
+├── View
+│   ├── FutureWeather
+│   │   ├── FutureWeatherTableViewCell.swift
+│   │   ├── FutureWeatherTableViewCell.xib
+│   │   └── FutureWeatherViewController.swift
+│   ├── FutureWeatherViewController.swift
+│   ├── WeatherDetail
+│   │   ├── WeatherDetailTableViewCell.swift
+│   │   └── WeatherDetailViewController.swift
+│   └── WeatherMain
+│       ├── WeatherMainTableViewCell.swift
+│       ├── WeatherMainTableViewCell.xib
+│       └── WeatherMainViewController.swift
+└── ViewModel
+    ├── FutureWeatherViewModel.swift
+    ├── ViewModelBindableType.swift
+    ├── WeatherDetailViewModel.swift
+    ├── WeatherMainCellModel.swift
+    └── WeatherMainViewModel.swift
+```
+
 ### Dependency Containers 
 
 WeatherApp_정도현에는 DependencyContainer는 3개가 존재합니다. `WeatherMainDependency`가 최상위 DependencyContainer이고, 아래로 내려갈수록 하위 DependencyContainer로 볼 수 있습니다. 하위 컨테이너로 넘어가면서, 부모로부터 필요한 의존성을 받을뿐 아니라, 새롭게 필요한 의존성을 만들어서, 만들어야할 객체에 주입합니다.
