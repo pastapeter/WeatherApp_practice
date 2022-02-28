@@ -91,10 +91,10 @@
 
 
 ## Dependency Container 적용기
-[DI Container 적용기](https://github.com/pastapeter/WeatherApp_practice/blob/master/DependencyContainer%EC%A0%81%EC%9A%A9%ED%95%98%EA%B8%B0.md)
-[Repository 적용기]
+- [DI Container 적용기](https://github.com/pastapeter/WeatherApp_practice/blob/master/DependencyContainer%EC%A0%81%EC%9A%A9%ED%95%98%EA%B8%B0.md)
+- [Repository 적용기]
 
 
 ## 트러블 슈팅
-[객체들이 deinit이 안된다..? Nested Closore 이야기](https://guttural-tumble-39b.notion.site/Memory-Leak-7546ddb167b541d7b5c02d97f6cdec64)
-[RootViewController의 Timer가 있을 때, Dispose를 해야하는가?]
+- [객체들이 deinit이 안된다..? Nested Closore 이야기](https://guttural-tumble-39b.notion.site/Memory-Leak-7546ddb167b541d7b5c02d97f6cdec64)
+- [RootViewController의 Timer가 있을 때, Dispose를 해야하는가?]
