@@ -20,7 +20,7 @@ WeatherApp에는 DependencyContainer는 3개가 존재합니다. `WeatherMainDep
 
 ### `WeatherRepository`
 
-<img align="center" width="50%" height="50%" src=https://user-images.githubusercontent.com/69891604/152113520-9b18e51b-01f5-4060-9e84-5847e90aae50.png>
+<img align="center" width="90%" height="80%" src=https://user-images.githubusercontent.com/69891604/152113520-9b18e51b-01f5-4060-9e84-5847e90aae50.png>
 
 
 Repository Pattern을 활용해서 `WeatherRepository` 를 사용하는 특정 객체(`WeatherMainViewModel`)이 데이터가 어디서 오는지 모르면서, 데이터를 fetch할 수 있게 만들었다. 
