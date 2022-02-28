@@ -67,8 +67,11 @@ final class FutureWeatherViewModel {
       .asDriver(onErrorJustReturn: [])
   }
   
-  var entries: Driver<(tempMax: [PointEntry], tempMin: [PointEntry], humid: [PointEntry])> {
-    forecastInfoArr
+  var cityAndEntries: Driver<(String, (tempMax: [PointEntry], tempMin: [PointEntry], humid: [PointEntry]))> {
+    
+    let left: Observable<String> = Observable.just(city)
+    
+    let right = forecastInfoArr
       .asObservable()
       .flatMap { arr -> Observable<(tempMax: [PointEntry], tempMin: [PointEntry], humid: [PointEntry])> in
         let minEntry = arr.map { PointEntry(value: $0.tempMin, label: $0.time)}
@@ -76,7 +79,13 @@ final class FutureWeatherViewModel {
         let humidArr = arr.map { PointEntry(value: $0.humid, label: $0.time)}
         return Observable.just((tempMax: maxEntry, tempMin: minEntry, humid: humidArr))
       }
-      .asDriver(onErrorJustReturn: (tempMax: [], tempMin: [], humid: []))
+    
+    let zip = Observable
+      .zip(left, right)
+      .asDriver(onErrorJustReturn: ("", ([], [], [])))
+    
+    return zip
+      
   }
   
   //MARK: - Private

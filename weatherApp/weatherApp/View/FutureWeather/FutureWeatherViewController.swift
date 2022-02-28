@@ -78,12 +78,14 @@ class FutureWeatherViewController: UIViewController, ViewModelBindableType {
   var viewModel: FutureWeatherViewModel
   
   func bindViewModel() {
-    viewModel.entries
-      .drive(onNext: { [weak self] in
-        self?.tempMinEntry = $0.tempMin
-        self?.humidEntry = $0.humid
-        self?.tempMaxEntry = $0.tempMax
-        self?.tableView.reloadData()
+    viewModel.cityAndEntries
+      .drive(onNext: { [weak self] cityName, entries in
+        guard let self = self else {return}
+        self.cityName = cityName
+        self.tempMinEntry = entries.tempMin
+        self.humidEntry = entries.humid
+        self.tempMaxEntry = entries.tempMax
+        self.tableView.reloadData()
       })
       .disposed(by: disposeBag)
   }
@@ -93,6 +95,7 @@ class FutureWeatherViewController: UIViewController, ViewModelBindableType {
   private var tempMaxEntry = [PointEntry]()
   private var humidEntry = [PointEntry]()
   private var tempMinEntry = [PointEntry]()
+  private var cityName = ""
 }
 
 extension FutureWeatherViewController: UITableViewDataSource {
