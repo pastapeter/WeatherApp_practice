@@ -27,7 +27,7 @@ Repository Pattern을 활용해서 `WeatherRepository` 를 사용하는 특정 �
 
 ### `WeatherMainViewController`
 
-<img align="center" width="50%" height="50%" src=https://user-images.githubusercontent.com/69891604/152113578-ccc62474-7327-427d-8f45-afe263ffcb35.png>
+<img align="center" width="80%" height="70%" src=https://user-images.githubusercontent.com/69891604/152113578-ccc62474-7327-427d-8f45-afe263ffcb35.png>
 
 
 `WeatherMainViewController`는 `WeatherMainViewModel`, 이미지를 캐싱할수 있는  `ImageCache`, `WeatherDetailViewController`를 만들 수 있는 Factory Method를 의존성으로 가진다.  그리고 `WeatherMainViewModel`은 현재 날씨를 가져올 수 있는 `CurrentWeatherRepository`를 의존성으로 가진다. 
@@ -37,7 +37,7 @@ Repository Pattern을 활용해서 `WeatherRepository` 를 사용하는 특정 �
 
 ### `WeatherDetailDependencyContainer`
 
-<img align="center" width="50%" height="50%" src=https://user-images.githubusercontent.com/69891604/152113636-00c43250-9132-4ff3-94d0-cfb9d7110025.png>
+<img align="center" width="80%" height="70%" src=https://user-images.githubusercontent.com/69891604/152113636-00c43250-9132-4ff3-94d0-cfb9d7110025.png>
 
 
 `WeatherMainViewController`에서 `WeatherDetailViewController`로 전환될 때, FactoryMethod로 인해서 `WeatherDetailDependencyContainer`가 생기고, 이를 통해서 `WeatherDetailViewController`와 관련된 모든 의존성 그래프가 그려지면서, 주입된다.
@@ -49,7 +49,7 @@ Repository Pattern을 활용해서 `WeatherRepository` 를 사용하는 특정 �
 
 ### `FutureWeatherDependencyContainer`
 
-<img align="center" width="50%" height="50%" src=https://user-images.githubusercontent.com/69891604/152113696-1de663ad-730e-49a4-8384-04e6dd6cee36.png>
+<img align="center" width="80%" height="70%" src=https://user-images.githubusercontent.com/69891604/152113696-1de663ad-730e-49a4-8384-04e6dd6cee36.png>
 
 
 `FutureWeatherViewController`에서는 `FutureWeatherViewModel`을 의존, `FutureWeatherViewModel`은 `FutureWeatherRepository`를 의존한다. `FutureWeatherViewModel`에서는 `FutureWeatherViewController`에서 그려줄 꺽은선 그래프를 그리는 데 필요한 정보들을 정제해서 제공한다. 이 데이터는 `FutureWeatherTableViewCell`에 @IBOutlet으로 정의되어있는 lineChart에 바인딩된다. 
