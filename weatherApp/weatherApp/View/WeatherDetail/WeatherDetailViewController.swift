@@ -84,6 +84,7 @@ class WeatherDetailViewController: UIViewController, ViewModelBindableType {
   
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
+    viewModel.viewWillAppear()
   }
   
   deinit {
@@ -119,8 +120,9 @@ class WeatherDetailViewController: UIViewController, ViewModelBindableType {
   }
   
   @objc private func gotoFutureWeatherVC(_ sender: Any) {
-    viewModel.stopSync()
+    viewModel.viewWillDisappear()
     let vc = futureWeatherViewControllerFactory.makeFutureWeatherViewController()
+    vc.modalPresentationStyle = .fullScreen
     self.present(vc, animated: true, completion: nil)
   }
   

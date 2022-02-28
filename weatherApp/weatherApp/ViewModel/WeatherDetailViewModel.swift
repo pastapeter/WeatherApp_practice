@@ -15,25 +15,30 @@ final class WeatherDetailViewModel {
     self.weatherRepository = weatherRepository
     self.cityName = cityName
   }
-
-  func stopSync() {
-    if let timer = timer, timer.isValid {
-      timer.invalidate()
-    }
+  
+  func viewWillAppear() {
+    isRunning.accept(true)
   }
   
-  func restartSync() {
-    
+  func viewWillDisappear() {
+    isRunning.accept(false)
   }
   
   let cityName: String
-  
+ 
   var weatherInfo: Driver<[String]> {
     
-    let tempRelay = PublishRelay<[String]>()
+  let tempRelay = PublishRelay<[String]>()
     
-    Observable<Int>
-      .timer(.milliseconds(0), period: .seconds(3), scheduler: MainScheduler.instance)
+    let running = isRunning
+      .asObservable()
+      .debug("DetailViewModel Timer")
+      .flatMapLatest { isrunning in
+        isrunning ?
+        Observable<Int>.timer(.milliseconds(0), period: .seconds(3), scheduler: MainScheduler.instance) : .empty()
+      }
+      
+      running
       .withUnretained(self)
       .subscribe { (viewmodel, index) in
         viewmodel.weatherRepository.currentWeather(in: viewmodel.cityName)
@@ -56,6 +61,7 @@ final class WeatherDetailViewModel {
   private var weatherRepository: CurrentWeatherRepository
   private var timer: Timer?
   private var disposeBag = DisposeBag()
+  private var isRunning = BehaviorRelay<Bool>(value: true)
   
 }
 

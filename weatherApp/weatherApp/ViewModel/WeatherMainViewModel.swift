@@ -58,7 +58,7 @@ final class WeatherMainViewModel {
     
     isRunning
       .withUnretained(self)
-      .filter { _ in list.count == 0 }
+      .filter { _ in list.isEmpty }
       .subscribe(onNext: { viewModel, int in
         viewModel.cityList.forEach { city in
           viewModel.respository.currentWeather(in: city)
