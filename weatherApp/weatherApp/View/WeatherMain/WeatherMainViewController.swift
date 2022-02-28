@@ -1,6 +1,6 @@
 //
 //  ViewController.swift
-//  weatherApp_yagom
+//  weatherApp
 //
 //  Created by abc on 2022/01/30.
 //
@@ -24,7 +24,7 @@ final class WeatherMainViewController: UIViewController, ViewModelBindableType {
   //MARK: - Binding
   
   func bindViewModel() {
-    
+      
     viewModel.weatherInfo
       .drive(tableView.rx.items(cellIdentifier: WeatherMainTableViewCell.identifier, cellType: WeatherMainTableViewCell.self)) { [weak self] (index, element, cell) in
         cell.bind(cellModel: element)
@@ -40,9 +40,10 @@ final class WeatherMainViewController: UIViewController, ViewModelBindableType {
       .subscribe(onNext: { [weak self] in
         guard let self = self else {return}
         self.viewModel.select(item: $0)
+        let vc = self.makeWeatherDetailVCFactory
+          .makeWeatherDetailViewController(selectedCity: self.viewModel.selectedCity)
         self.navigationController?
-          .pushViewController(self.makeWeatherDetailVCFactory
-          .makeWeatherDetailViewController(selectedCity: self.viewModel.selectedCity),
+          .pushViewController(vc,
                               animated: true)
       })
       .disposed(by: disposeBag)
@@ -54,6 +55,11 @@ final class WeatherMainViewController: UIViewController, ViewModelBindableType {
   override func viewDidLoad() {
     super.viewDidLoad()
     setTableView()
+  }
+  
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
+    viewModel.viewWillAppear()
   }
 
   //MARK: - Private
@@ -74,7 +80,7 @@ final class WeatherMainViewController: UIViewController, ViewModelBindableType {
     self.makeWeatherDetailVCFactory = weatherDetailViewControllerFactory
     self.imageCache = imageCache
     super.init(nibName: nil, bundle: nil)
-    bind(viewModel: self.viewModel)
+    self.bind(viewModel: self.viewModel)
   }
   
   required public init?(coder: NSCoder) {
@@ -94,4 +100,5 @@ final class WeatherMainViewController: UIViewController, ViewModelBindableType {
   }
 
 }
+
 

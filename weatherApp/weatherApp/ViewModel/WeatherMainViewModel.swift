@@ -1,6 +1,7 @@
+
 //
 //  WeatherMainViewModel.swift
-//  weatherApp_yagom
+//  weatherApp
 //
 //  Created by abc on 2022/01/31.
 //
@@ -20,12 +21,8 @@ final class WeatherMainViewModel {
     }
   }
   
-  func restart() -> Driver<[WeatherMainCellModel]> {
-    return weatherInfo
-  }
-  
   func select(item:WeatherMainCellModel) {
-    self.stopSync()
+    self.running.accept(false)
     self.selectedCity = item.name
   }
   
@@ -41,18 +38,25 @@ final class WeatherMainViewModel {
     self.disposeBag = DisposeBag()
   }
   
+  func viewWillAppear() {
+    running.accept(true)
+  }
+  
+  private var running: BehaviorRelay = BehaviorRelay(value: true)
+  
   // 연산자를 활용해서 SyncWeather과 합칠 예정
   var weatherInfo: Driver<[WeatherMainCellModel]> {
     
     let tempRelay = PublishRelay<[WeatherMainCellModel]>()
     var list = [WeatherMainCellModel]()
+
+    let isRunning = running.asObservable()
+      .debug("타이머 굴러가는중")
+      .flatMapLatest { isRunning in
+        isRunning ? Observable<Int>
+        .timer(.seconds(0), period: .seconds(5), scheduler: MainScheduler.instance) : .empty() }
     
-    //Timer 는 Main에서 돈다.
-    //Main에서 돌다가 repository.currentWeather는 UrlSession이니깐 자동으로 backgroundQueue
-    //그러다가 driver를 통해서 share()도 되고, 다시 mainqueue에서 돌게됨 
-    
-    Observable<Int>
-      .timer(.seconds(0), period: .seconds(10), scheduler: MainScheduler.instance)
+    isRunning
       .withUnretained(self)
       .filter { _ in list.count == 0 }
       .subscribe(onNext: { viewModel, int in
@@ -72,7 +76,7 @@ final class WeatherMainViewModel {
         }
       })
       .disposed(by: disposeBag)
-    
+      
     return tempRelay
       .asDriver(onErrorJustReturn: [])
   }
@@ -84,6 +88,6 @@ final class WeatherMainViewModel {
     }
     return nil
   }
-  
+
 }
 
