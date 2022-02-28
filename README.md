@@ -10,9 +10,12 @@
 4. MVVM으로 작성하기 :white_check_mark:
 
 ## WeatherApp의 목표(2차)
-1. Rxswift으로 Refactoring
+1. Rxswift으로 바꿔보기 :white_check_mark:
 2. Test code 작성해보기
 
+
+## WeatherApp의 목표(3차)
+1. not Yet
 
 ## Foldering
 ```bash
