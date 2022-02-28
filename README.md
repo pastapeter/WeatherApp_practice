@@ -6,7 +6,8 @@
 ## WeatehrApp의 목표(1차)
 1. Dependency Container를 사용해서 의존성 주입하기 :white_check_mark:
 2. 의존성 역치를 통해서 Testable한 코드 작성하기 :white_check_mark:
-3. MVVM으로 작성하기 :white_check_mark:
+3. Repository Pattern 사용하기 :white_check_mark:
+4. MVVM으로 작성하기 :white_check_mark:
 
 ## WeatherApp의 목표(2차)
 1. Rxswift으로 Refactoring
