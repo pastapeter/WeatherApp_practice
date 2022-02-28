@@ -1,11 +1,12 @@
 //
 //  WeatherDetailTableViewCell.swift
-//  weatherApp_yagom
+//  weatherApp
 //
 //  Created by abc on 2022/02/01.
 //
 
 import UIKit
+import RxSwift
 
 class WeatherDetailTableViewCell: UITableViewCell {
   
@@ -36,6 +37,8 @@ class WeatherDetailTableViewCell: UITableViewCell {
     return stackview
   }()
   
+  var disposeBag = DisposeBag()
+  
   override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
     super.init(style: style, reuseIdentifier: reuseIdentifier)
     contentView.addSubview(stackView)
@@ -59,5 +62,12 @@ class WeatherDetailTableViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
+  
+  override func prepareForReuse() {
+    super.prepareForReuse()
+    iconImageView.image = nil
+    disposeBag = DisposeBag()
+  }
 
 }
+

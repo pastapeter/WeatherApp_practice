@@ -1,6 +1,6 @@
 //
 //  FutureWeatherTableViewCell.swift
-//  weatherApp_yagom
+//  weatherApp
 //
 //  Created by abc on 2022/02/01.
 //
@@ -24,3 +24,4 @@ class FutureWeatherTableViewCell: UITableViewCell, NibLoadableView {
     }
     
 }
+

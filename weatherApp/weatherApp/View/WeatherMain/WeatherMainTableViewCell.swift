@@ -1,11 +1,12 @@
 //
 //  WeatherMainTableViewCell.swift
-//  weatherApp_yagom
+//  weatherApp
 //
 //  Created by abc on 2022/01/30.
 //
 
 import UIKit
+import RxSwift
 
 final class WeatherMainTableViewCell: UITableViewCell, NibLoadableView {
   
@@ -23,9 +24,16 @@ final class WeatherMainTableViewCell: UITableViewCell, NibLoadableView {
   @IBOutlet weak var currentTemperatureLabel: UILabel!
   @IBOutlet weak var currentHumidLabel: UILabel!
   
+  var disposeBag = DisposeBag()
+  
   override func awakeFromNib() {
     super.awakeFromNib()
-    
+  }
+  
+  override func prepareForReuse() {
+    super.prepareForReuse()
+    weatherImageView.image = nil
+    disposeBag = DisposeBag()
   }
   
 }
@@ -35,5 +43,6 @@ extension WeatherMainTableViewCell {
     self.viewModel = cellModel
   }
 }
+
 
 
