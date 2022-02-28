@@ -93,9 +93,9 @@
 ```
 
 
-## Dependency Container 적용기
+## 아키텍쳐 & 패턴 적용기
 - [DI Container 적용기](https://github.com/pastapeter/WeatherApp_practice/blob/master/DependencyContainer%EC%A0%81%EC%9A%A9%ED%95%98%EA%B8%B0.md)
-- [Repository 적용기]
+- [Repository Pattern 적용기]
 
 
 ## 트러블 슈팅
