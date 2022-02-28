@@ -4,6 +4,10 @@
 Dependency Container를 통해서 의존성 역전을 통해 코드를 바꿔 낄 수 있게 만들 수 있다. ViewModel, ViewController, 하위 DependencyContainer에게 의존성을 주입할 때, 주입받는 입장에서는 type을 protocol 형으로 두고, 의존성 주입 시에는 객체를 전달하는 것이다. 이를 통해 필요로 하는 protocol을 채택한 어떤 객체가 와도 상관없다. 이를 통해 test할 코드를 먼저 집어 넣을 수 있다.
 
 
+## 적용 방법
+라이브러리를 쓰지 않고, 직접 DI Container를 구성했다. container내부에서 Factory 메서드를 구성하고, Factory method를 protocol로 viewcontroller로 주입시켜서 viewcontroller는 바로 다음 객체를 만들 수 있도록 한다.
+
+
 ### 개요
 
 WeatherApp에는 DependencyContainer는 3개가 존재합니다. `WeatherMainDependency`가 최상위 DependencyContainer이고, 아래로 내려갈수록 하위 DependencyContainer로 볼 수 있습니다. 하위 컨테이너로 넘어가면서, 부모로부터 필요한 의존성을 받을뿐 아니라, 새롭게 필요한 의존성을 만들어서, 만들어야할 객체에 주입합니다.
