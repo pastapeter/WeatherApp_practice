@@ -1,6 +1,6 @@
 # WeatherApp
 
-<img width="648" alt="스크린샷 2022-02-28 오전 12 24 34" src="https://user-images.githubusercontent.com/69891604/155888518-8a36a533-ad83-4733-b24f-3ef7a9b7a001.png">
+<img width="644" alt="스크린샷 2022-02-28 오후 9 57 57" src="https://user-images.githubusercontent.com/69891604/155987406-01585167-1a90-4c5e-8c2d-2bd3eaa0331b.png">
 
 
 ## WeatehrApp의 목표(1차)
