@@ -17,6 +17,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     guard let windowScene = (scene as? UIWindowScene) else { return }
     let weatherMainVC = injectionContainer.makeWeatherMainViewController()
     let navigationController = UINavigationController(rootViewController: weatherMainVC)
+    navigationController.navigationBar.backgroundColor = .clear
+    navigationController.navigationBar.shadowImage = UIImage()
+    navigationController.navigationBar.setBackgroundImage(UIImage(), for: .default)
     let window = UIWindow(windowScene: windowScene)
     window.rootViewController = navigationController
     window.makeKeyAndVisible()

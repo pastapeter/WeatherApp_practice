@@ -84,12 +84,13 @@ class LineChart: UIView {
     
     self.layer.addSublayer(gridLayer)
     self.addSubview(scrollView)
-    self.backgroundColor = .white
+    self.backgroundColor = .clear
     
   }
   
   private func setupcolumnStandardLabel() {
     columnStardardLabel.text = "기온/습도"
+    columnStardardLabel.textColor = .white
     columnStardardLabel.font = UIFont.systemFont(ofSize: 10)
     columnStardardLabel.translatesAutoresizingMaskIntoConstraints = false
     self.addSubview(columnStardardLabel)
@@ -152,7 +153,7 @@ class LineChart: UIView {
         } else if index == 1 {
           lineLayer.strokeColor = UIColor.blue.cgColor
         } else {
-          lineLayer.strokeColor = UIColor.black.cgColor
+          lineLayer.strokeColor = UIColor.white.cgColor
         }
         lineLayer.fillColor = UIColor.clear.cgColor
         lineLayer.lineWidth = 3
@@ -183,8 +184,8 @@ class LineChart: UIView {
       for i in 0..<dataEntries.count {
         let textLayer = CATextLayer()
         textLayer.frame = CGRect(x: lineGap*CGFloat(i) - lineGap/2 + 40, y: mainLayer.frame.height - bottomSpace/2 - 8, width: lineGap, height: 16)
-        textLayer.foregroundColor = UIColor.black.cgColor
-        textLayer.backgroundColor = UIColor.white.cgColor
+        textLayer.foregroundColor = UIColor.white.cgColor
+        textLayer.backgroundColor = UIColor.clear.cgColor
         textLayer.alignmentMode = CATextLayerAlignmentMode.center
         textLayer.contentsScale = UIScreen.main.scale
         textLayer.font = CTFontCreateWithName(UIFont.systemFont(ofSize: 0).fontName as CFString, 0, nil)
@@ -218,8 +219,8 @@ class LineChart: UIView {
 
         let lineLayer = CAShapeLayer()
         lineLayer.path = path.cgPath
-        lineLayer.fillColor = UIColor.black.cgColor
-        lineLayer.strokeColor = UIColor.black.cgColor
+        lineLayer.fillColor = UIColor.white.cgColor
+        lineLayer.strokeColor = UIColor.white.cgColor
         lineLayer.lineWidth = 0.5
         if value > 0.0 && value < 1.0 {
           lineLayer.lineDashPattern = [4,4]
@@ -242,7 +243,7 @@ class LineChart: UIView {
         // 세로축 TEXT
         let textLayer = CATextLayer()
         textLayer.frame = CGRect(x: 4, y: height, width: 60, height: 16)
-        textLayer.foregroundColor = UIColor.black.cgColor
+        textLayer.foregroundColor = UIColor.white.cgColor
         textLayer.backgroundColor = UIColor.clear.cgColor
         textLayer.contentsScale = UIScreen.main.scale
         textLayer.font = CTFontCreateWithName(UIFont.systemFont(ofSize: 0).fontName as CFString, 0, nil)

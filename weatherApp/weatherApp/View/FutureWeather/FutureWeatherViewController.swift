@@ -33,6 +33,7 @@ class FutureWeatherViewController: UIViewController, ViewModelBindableType {
     
     tableView.separatorStyle = .none
     tableView.dataSource = self
+    tableView.backgroundColor = .clear
     tableView.register(FutureWeatherTableViewCell.self)
 
     tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -67,7 +68,7 @@ class FutureWeatherViewController: UIViewController, ViewModelBindableType {
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    view.backgroundColor = .white
+    view.backgroundColor = UIColor(patternImage: UIImage(named: "background")!)
     setupXButton()
     setUptableView()
     // Do any additional setup after loading the view.

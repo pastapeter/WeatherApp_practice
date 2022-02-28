@@ -15,7 +15,9 @@ final class WeatherMainViewController: UIViewController, ViewModelBindableType {
 
   private lazy var tableView: UITableView = {
     let tableview = UITableView()
-    tableview.backgroundColor = .white
+    tableview.backgroundColor = .clear
+    tableview.separatorStyle = .none
+    tableview.allowsMultipleSelection = false
     tableview.register(WeatherMainTableViewCell.self)
     tableview.translatesAutoresizingMaskIntoConstraints = false
     return tableview
@@ -54,6 +56,7 @@ final class WeatherMainViewController: UIViewController, ViewModelBindableType {
 
   override func viewDidLoad() {
     super.viewDidLoad()
+    view.backgroundColor = UIColor(patternImage: UIImage(named: "background")!)
     setTableView()
   }
   

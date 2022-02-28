@@ -74,6 +74,7 @@ class WeatherDetailViewController: UIViewController, ViewModelBindableType {
     view.backgroundColor = .white
     setupBarbutton()
     setupTableView()
+    view.backgroundColor = UIColor(patternImage: UIImage(named: "background")!)
   }
   
   @objc func closeVC(_ sender: UIBarButtonItem) {
@@ -106,7 +107,7 @@ class WeatherDetailViewController: UIViewController, ViewModelBindableType {
   private func setupTableView() {
     
     tableView.separatorStyle = .none
-    tableView.backgroundColor = .white
+    tableView.backgroundColor = .clear
     tableView.register(WeatherDetailTableViewCell.self)
     tableView.translatesAutoresizingMaskIntoConstraints = false
     view.addSubview(tableView)

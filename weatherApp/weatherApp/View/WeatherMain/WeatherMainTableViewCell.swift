@@ -26,8 +26,17 @@ final class WeatherMainTableViewCell: UITableViewCell, NibLoadableView {
   
   var disposeBag = DisposeBag()
   
+  let background = UIView()
+  
   override func awakeFromNib() {
     super.awakeFromNib()
+    background.backgroundColor = .clear
+    self.backgroundColor = .clear
+    self.contentView.backgroundColor = .clear
+    self.selectedBackgroundView = background
+    cityNameLabel.textColor = .white
+    currentTemperatureLabel.textColor = .white
+    currentHumidLabel.textColor = .white
   }
   
   override func prepareForReuse() {

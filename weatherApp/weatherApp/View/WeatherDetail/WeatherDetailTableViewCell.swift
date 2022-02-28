@@ -13,8 +13,9 @@ class WeatherDetailTableViewCell: UITableViewCell {
   lazy var titleLabel: UILabel = {
     let label = UILabel()
     label.translatesAutoresizingMaskIntoConstraints = false
-    label.font = UIFont.preferredFont(forTextStyle: .caption1)
+    label.font = UIFont.preferredFont(forTextStyle: .title1)
     label.numberOfLines = 0
+    label.textColor = .white
     label.text = "도시이름 : "
     return label
   }()
@@ -34,6 +35,7 @@ class WeatherDetailTableViewCell: UITableViewCell {
     stackview.spacing = 0
     stackview.distribution = .fill
     stackview.alignment = .leading
+    stackview.backgroundColor = .clear
     return stackview
   }()
   
@@ -46,6 +48,7 @@ class WeatherDetailTableViewCell: UITableViewCell {
     stackView.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
     stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
     stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
+    self.backgroundColor = .clear
   }
   
   required init?(coder: NSCoder) {
@@ -54,6 +57,7 @@ class WeatherDetailTableViewCell: UITableViewCell {
   
     override func awakeFromNib() {
         super.awakeFromNib()
+      self.backgroundColor = .clear
         // Initialization code
     }
 
