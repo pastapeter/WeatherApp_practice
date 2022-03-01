@@ -101,4 +101,4 @@
 
 ## 트러블 슈팅
 - [객체들이 deinit이 안된다..? Nested Closore 이야기](https://guttural-tumble-39b.notion.site/Memory-Leak-7546ddb167b541d7b5c02d97f6cdec64)
-- [RootViewController의 Timer가 있을 때, Dispose를 해야하는가?]
+- [RootViewController의 Timer가 있을 때, Dispose를 해야하는가?](https://github.com/pastapeter/WeatherApp_practice/blob/master/RootViewController%EC%9D%98%20Timer%EA%B0%80%20%EC%9E%88%EC%9D%84%20%EB%95%8C%2C%20Dispose%EB%A5%BC%20%ED%95%B4%EC%95%BC%ED%95%98%EB%8A%94%EA%B0%80%3F.md)
