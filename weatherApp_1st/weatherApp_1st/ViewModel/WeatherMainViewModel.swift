@@ -51,8 +51,8 @@ final class WeatherMainViewModel {
   }
   private var tempDatasource: [WeatherMainCellModel] = []
   
-  private var cityList: [String] = []
-  private var timer: Timer?
+  var cityList: [String] = []
+  var timer: Timer?
   
   private func getWeather() {
     var tempList: [CurrentWeather] = []
