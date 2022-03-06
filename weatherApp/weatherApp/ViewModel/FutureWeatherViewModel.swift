@@ -18,7 +18,7 @@ final class FutureWeatherViewModel {
     self.city = cityName
   }
   
-  func stopSync() {
+  func viewwillDisappear() {
     disposeBag = DisposeBag()
   }
   

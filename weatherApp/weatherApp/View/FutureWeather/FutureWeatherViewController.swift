@@ -17,7 +17,6 @@ class FutureWeatherViewController: UIViewController, ViewModelBindableType {
     let button = UIButton()
     button.translatesAutoresizingMaskIntoConstraints = false
     button.setImage(UIImage(systemName: "xmark"), for: .normal)
-    button.addTarget(self, action: #selector(dismissVC(_:)), for: .touchUpInside)
     return button
   }()
   
@@ -45,11 +44,6 @@ class FutureWeatherViewController: UIViewController, ViewModelBindableType {
     tableView.topAnchor.constraint(equalTo: xButton.bottomAnchor, constant: 20).isActive = true
     tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
     
-  }
-  
-  @objc private func dismissVC(_ sender: Any) {
-    viewModel.stopSync()
-    self.dismiss(animated: true, completion: nil)
   }
   
   //MARK: - Init
@@ -86,6 +80,15 @@ class FutureWeatherViewController: UIViewController, ViewModelBindableType {
         self.humidEntry = entries.humid
         self.tempMaxEntry = entries.tempMax
         self.tableView.reloadData()
+      })
+      .disposed(by: disposeBag)
+    
+    xButton.rx.tap
+      .throttle(.milliseconds(500), scheduler: MainScheduler.instance)
+      .withUnretained(self)
+      .subscribe(onNext: { vc, _ in
+        vc.viewModel.viewwillDisappear()
+        vc.dismiss(animated: true, completion: nil)
       })
       .disposed(by: disposeBag)
   }
