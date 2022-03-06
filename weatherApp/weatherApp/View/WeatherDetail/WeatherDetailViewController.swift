@@ -18,12 +18,12 @@ class WeatherDetailViewController: UIViewController, ViewModelBindableType {
   
   private var tableView = UITableView()
   lazy var futureWeatherButton: UIBarButtonItem = {
-    let button = UIBarButtonItem(title: "미래날씨", style: .plain, target: self, action: #selector(gotoFutureWeatherVC(_:)))
+    let button = UIBarButtonItem(title: "미래날씨", style: .plain, target: nil, action: nil)
     return button
   }()
   
   lazy var backbutton: UIBarButtonItem = {
-    let button = UIBarButtonItem(title: "back", style: .plain, target: self, action: #selector(closeVC(_:)))
+    let button = UIBarButtonItem(title: "back", style: .plain, target: nil, action: nil)
     return button
   }()
   
@@ -51,7 +51,26 @@ class WeatherDetailViewController: UIViewController, ViewModelBindableType {
         }
       }
       .disposed(by: disposeBag)
-      }
+    
+    backbutton.rx.tap
+      .throttle(.milliseconds(500), scheduler: MainScheduler.instance)
+      .withUnretained(self)
+      .subscribe(onNext: { vc, _ in
+        vc.navigationController?.popViewController(animated: true)
+      })
+      .disposed(by: disposeBag)
+    
+    futureWeatherButton.rx.tap
+      .throttle(.milliseconds(500), scheduler: MainScheduler.instance)
+      .withUnretained(self)
+      .subscribe(onNext: { vc, _ in
+        vc.viewModel.viewWillDisappear()
+        let newvc = vc.futureWeatherViewControllerFactory.makeFutureWeatherViewController()
+        newvc.modalPresentationStyle = .fullScreen
+        vc.present(newvc, animated: true, completion: nil)
+      })
+      .disposed(by: disposeBag)
+  }
 
   //MARK: - init
 
@@ -76,12 +95,7 @@ class WeatherDetailViewController: UIViewController, ViewModelBindableType {
     setupTableView()
     view.backgroundColor = UIColor(patternImage: UIImage(named: "background")!)
   }
-  
-  @objc func closeVC(_ sender: UIBarButtonItem) {
-    self.navigationController?.popViewController(animated: true)
-    
-  }
-  
+
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
     viewModel.viewWillAppear()
@@ -120,11 +134,7 @@ class WeatherDetailViewController: UIViewController, ViewModelBindableType {
   }
   
   @objc private func gotoFutureWeatherVC(_ sender: Any) {
-    viewModel.viewWillDisappear()
-    let vc = futureWeatherViewControllerFactory.makeFutureWeatherViewController()
-    vc.modalPresentationStyle = .fullScreen
-    self.present(vc, animated: true, completion: nil)
-  }
+      }
   
 }
 
