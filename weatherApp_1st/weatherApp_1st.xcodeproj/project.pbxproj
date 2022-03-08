@@ -57,6 +57,7 @@
 		28130FBE27A79BD300A4BD5E /* WeatherRemoteAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28130FBD27A79BD300A4BD5E /* WeatherRemoteAPI.swift */; };
 		2856E42A27D4867A009F0B6E /* WeatherMainViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2856E42927D4867A009F0B6E /* WeatherMainViewModelTests.swift */; };
 		2856E42D27D486E7009F0B6E /* MockCurrentWeatherRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2856E42C27D486E7009F0B6E /* MockCurrentWeatherRepository.swift */; };
+		2856E44727D791C7009F0B6E /* WeatherMainCellModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2856E44627D791C7009F0B6E /* WeatherMainCellModelTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -131,6 +132,7 @@
 		28130FBD27A79BD300A4BD5E /* WeatherRemoteAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherRemoteAPI.swift; sourceTree = "<group>"; };
 		2856E42927D4867A009F0B6E /* WeatherMainViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherMainViewModelTests.swift; sourceTree = "<group>"; };
 		2856E42C27D486E7009F0B6E /* MockCurrentWeatherRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockCurrentWeatherRepository.swift; sourceTree = "<group>"; };
+		2856E44627D791C7009F0B6E /* WeatherMainCellModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherMainCellModelTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -400,6 +402,7 @@
 			isa = PBXGroup;
 			children = (
 				2856E42927D4867A009F0B6E /* WeatherMainViewModelTests.swift */,
+				2856E44627D791C7009F0B6E /* WeatherMainCellModelTests.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -610,6 +613,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2856E42A27D4867A009F0B6E /* WeatherMainViewModelTests.swift in Sources */,
+				2856E44727D791C7009F0B6E /* WeatherMainCellModelTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
