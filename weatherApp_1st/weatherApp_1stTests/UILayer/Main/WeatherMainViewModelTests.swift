@@ -20,6 +20,7 @@ class WeatherMainViewModelTests: XCTestCase {
   }
   
   override func tearDownWithError() throws {
+    sut.stopSync()
     sut = nil
     mock = nil
     try super.tearDownWithError()
