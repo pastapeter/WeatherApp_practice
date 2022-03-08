@@ -41,7 +41,7 @@ final class WeatherDetailViewModel {
   
   //MARK: - private
   private let weatherRepository: CurrentWeatherRepository
-  private var timer: Timer?
+  var timer: Timer?
   
   private func getWeather() {
     self.weatherRepository.currentWeather(in: cityName) { [weak self] weather in
@@ -56,29 +56,23 @@ final class WeatherDetailViewModel {
   }
   
   private func syncWeather() {
+    print("*********** WeatherDetailVM_START ***********")
     timer = Timer.scheduledTimer(withTimeInterval: 3, repeats: true) { [weak self] _ in
       guard let self = self else {return}
-      print("*********** WeatherDetailVM_START ***********")
       self.getWeather()
     }
   }
   
 }
 
-extension WeatherDetailViewModel {
-  
-  // WeatherDetailViewModel에서만 선언가능한 구조체
-  struct DetailWeatherInfo {
-    var temp: Double = 0.0
-    var imageUrl: String = ""
-    var feelsLike: Double = 0.0
-    var tempMin: Double = 0
-    var tempMax: Double = 0.0
-    var pressure: Int = 0
-    var humidity: Double = 0.0
-    var windSpeed: Double = 0.0
-    var description: String = ""
-  }
-  
+struct DetailWeatherInfo: Equatable {
+  var temp: Double = 0.0
+  var imageUrl: String = ""
+  var feelsLike: Double = 0.0
+  var tempMin: Double = 0
+  var tempMax: Double = 0.0
+  var pressure: Int = 0
+  var humidity: Double = 0.0
+  var windSpeed: Double = 0.0
+  var description: String = ""
 }
-

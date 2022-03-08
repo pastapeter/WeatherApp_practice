@@ -58,6 +58,7 @@
 		2856E42A27D4867A009F0B6E /* WeatherMainViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2856E42927D4867A009F0B6E /* WeatherMainViewModelTests.swift */; };
 		2856E42D27D486E7009F0B6E /* MockCurrentWeatherRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2856E42C27D486E7009F0B6E /* MockCurrentWeatherRepository.swift */; };
 		2856E44727D791C7009F0B6E /* WeatherMainCellModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2856E44627D791C7009F0B6E /* WeatherMainCellModelTests.swift */; };
+		2856E44927D792D6009F0B6E /* WeatherDetailViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2856E44827D792D6009F0B6E /* WeatherDetailViewModelTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -133,6 +134,7 @@
 		2856E42927D4867A009F0B6E /* WeatherMainViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherMainViewModelTests.swift; sourceTree = "<group>"; };
 		2856E42C27D486E7009F0B6E /* MockCurrentWeatherRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockCurrentWeatherRepository.swift; sourceTree = "<group>"; };
 		2856E44627D791C7009F0B6E /* WeatherMainCellModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherMainCellModelTests.swift; sourceTree = "<group>"; };
+		2856E44827D792D6009F0B6E /* WeatherDetailViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherDetailViewModelTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -410,6 +412,7 @@
 		2856E42727D48633009F0B6E /* Detail */ = {
 			isa = PBXGroup;
 			children = (
+				2856E44827D792D6009F0B6E /* WeatherDetailViewModelTests.swift */,
 			);
 			path = Detail;
 			sourceTree = "<group>";
@@ -614,6 +617,7 @@
 			files = (
 				2856E42A27D4867A009F0B6E /* WeatherMainViewModelTests.swift in Sources */,
 				2856E44727D791C7009F0B6E /* WeatherMainCellModelTests.swift in Sources */,
+				2856E44927D792D6009F0B6E /* WeatherDetailViewModelTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
