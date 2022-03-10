@@ -71,11 +71,11 @@ class NetworkRequestTests: XCTestCase {
     
     //then
     XCTAssertTrue(result.calledCompletion)
-    do {
-      let data = try result.result.get()
-      XCTAssertNil(data)
-    } catch {
+    switch result.result {
+    case .failure(let error):
       XCTAssertEqual(error as! NetworkError, NetworkError.failResponse)
+    case .success(let data):
+      XCTAssertNil(data)
     }
   }
   
@@ -88,11 +88,11 @@ class NetworkRequestTests: XCTestCase {
     
     //then
     XCTAssertTrue(result.calledCompletion)
-    do {
-      let data = try result.result.get()
+    switch result.result {
+    case .failure(let error as NSError):
+      XCTAssertEqual(error, expectedError)
+    case .success(let data):
       XCTAssertNil(data)
-    } catch let error1 as NSError {
-      XCTAssertEqual(error1, expectedError)
     }
     
   }
@@ -105,13 +105,27 @@ class NetworkRequestTests: XCTestCase {
     
     //then
     XCTAssertTrue(result.calledCompletion)
-    do {
-      let data = try result.result.get()
+    switch result.result {
+    case .success(let data):
       XCTAssertNotNil(data)
-    } catch let error {
+    case .failure(let error):
       XCTAssertNil(error)
     }
     
+  }
+  
+  func test_request_200GoodDataisNil_컴플리션이불렸을때() {
+    //when
+    let result = whenGetRequest(data: nil, statusCode: 200, error: nil)
+    
+    //then
+    XCTAssertTrue(result.calledCompletion)
+    switch result.result {
+    case .success(let data):
+      XCTAssertNotNil(data)
+    case .failure(let error):
+      XCTAssertEqual(error as! NetworkError, NetworkError.invaildData )
+    }
   }
   
 }
