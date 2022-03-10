@@ -10,4 +10,5 @@ import Foundation
 enum NetworkError: String, Error {
   case failResponse
   case invaildData
+  case unknown
 }

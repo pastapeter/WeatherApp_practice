@@ -16,7 +16,6 @@ class FutureWeatherViewModelTests: XCTestCase {
   
   override func setUpWithError() throws {
     try super.setUpWithError()
-    respository = Mock
   }
   
   override func tearDownWithError() throws {
