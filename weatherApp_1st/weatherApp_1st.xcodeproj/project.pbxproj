@@ -65,7 +65,7 @@
 		289F4CD327DA4BC200AB8E52 /* URLSessionProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 289F4CCD27DA45FF00AB8E52 /* URLSessionProtocol.swift */; };
 		289F4CD527DA4C3100AB8E52 /* URLSessionProtocolTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 289F4CD427DA4C3100AB8E52 /* URLSessionProtocolTests.swift */; };
 		289F4CD927DA540800AB8E52 /* NetworkRequestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 289F4CD827DA540800AB8E52 /* NetworkRequestTests.swift */; };
-		289F4CDC27DA608500AB8E52 /* GET_CurrentWeather.json in Resources */ = {isa = PBXBuildFile; fileRef = 289F4CDB27DA608500AB8E52 /* GET_CurrentWeather.json */; };
+		289F4CDC27DA608500AB8E52 /* GET_CurrentWeather.JSON in Resources */ = {isa = PBXBuildFile; fileRef = 289F4CDB27DA608500AB8E52 /* GET_CurrentWeather.JSON */; };
 		289F4CDF27DA60C900AB8E52 /* Data+JSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 289F4CDE27DA60C900AB8E52 /* Data+JSON.swift */; };
 /* End PBXBuildFile section */
 
@@ -149,7 +149,7 @@
 		289F4CCF27DA46B800AB8E52 /* MockURLSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockURLSession.swift; sourceTree = "<group>"; };
 		289F4CD427DA4C3100AB8E52 /* URLSessionProtocolTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionProtocolTests.swift; sourceTree = "<group>"; };
 		289F4CD827DA540800AB8E52 /* NetworkRequestTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkRequestTests.swift; sourceTree = "<group>"; };
-		289F4CDB27DA608500AB8E52 /* GET_CurrentWeather.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = GET_CurrentWeather.json; sourceTree = "<group>"; };
+		289F4CDB27DA608500AB8E52 /* GET_CurrentWeather.JSON */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = GET_CurrentWeather.JSON; sourceTree = "<group>"; };
 		289F4CDE27DA60C900AB8E52 /* Data+JSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+JSON.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -467,7 +467,7 @@
 		289F4CDA27DA605500AB8E52 /* Data */ = {
 			isa = PBXGroup;
 			children = (
-				289F4CDB27DA608500AB8E52 /* GET_CurrentWeather.json */,
+				289F4CDB27DA608500AB8E52 /* GET_CurrentWeather.JSON */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -596,7 +596,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				289F4CDC27DA608500AB8E52 /* GET_CurrentWeather.json in Resources */,
+				289F4CDC27DA608500AB8E52 /* GET_CurrentWeather.JSON in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
