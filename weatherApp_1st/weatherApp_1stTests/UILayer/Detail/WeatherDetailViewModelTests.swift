@@ -16,7 +16,7 @@ class WeatherDetailViewModelTests: XCTestCase {
   
   override func setUpWithError() throws {
     try super.setUpWithError()
-    respository = MockCurrentWeatherRepository()
+    respository = FakeCurrentWeatherRepository()
     cityName = "Seoul"
     sut = WeatherDetailViewModel(weatherRepository: respository, cityName: cityName)
   }

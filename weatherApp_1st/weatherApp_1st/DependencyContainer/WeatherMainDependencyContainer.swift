@@ -38,7 +38,7 @@ public class WeatherMainDependencyContainer {
   
   func makeWeatherMainViewModel() -> WeatherMainViewModel {
     #if targetEnvironment(simulator)
-    return WeatherMainViewModel(currentWeatherRepository: MockCurrentWeatherRepository())
+    return WeatherMainViewModel(currentWeatherRepository: FakeCurrentWeatherRepository())
     #else
     return WeatherMainViewModel(currentWeatherRepository: sharedWeatherRepository)
     #endif

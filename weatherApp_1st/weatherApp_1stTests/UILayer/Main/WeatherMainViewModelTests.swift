@@ -11,11 +11,11 @@ import XCTest
 class WeatherMainViewModelTests: XCTestCase {
   
   var sut: WeatherMainViewModel!
-  var mock: MockCurrentWeatherRepository!
+  var mock: FakeCurrentWeatherRepository!
   
   override func setUpWithError() throws {
     try super.setUpWithError()
-    mock = MockCurrentWeatherRepository()
+    mock = FakeCurrentWeatherRepository()
     sut = WeatherMainViewModel(currentWeatherRepository: mock)
   }
   
