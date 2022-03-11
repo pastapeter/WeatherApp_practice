@@ -17,6 +17,7 @@ final class NetworkRequest {
   
   var session: URLSessionProtocol
   
+  @discardableResult
   func request(url: String, completion: @escaping URLSessionResult) -> URLSessionTaskProtocol {
     let url = URL(string: url)!
     let task = session.makeDataTask(with: url) { data, response, error in
@@ -42,6 +43,7 @@ final class NetworkRequest {
     return task
   }
   
+  @available(*, deprecated)
   static func requestWithEpemeral(url: String, completion: @escaping URLSessionResult) {
     print(url)
     URLSession(configuration: .ephemeral).dataTask(with: URL(string: url)!) { (data, response, error) in

@@ -29,7 +29,7 @@ public class WeatherMainDependencyContainer {
     }
     
     func makeImageCache() -> ImageCache {
-      return ImageCacher()
+      return ImageCacher(networkRequest: NetworkRequest(session: URLSession.init(configuration: .ephemeral)))
     }
     
     self.imageCache = makeImageCache()

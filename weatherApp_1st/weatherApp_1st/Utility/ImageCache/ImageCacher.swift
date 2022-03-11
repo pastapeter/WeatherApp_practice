@@ -9,8 +9,11 @@ import UIKit
 
 final class ImageCacher: ImageCache {
   
-  public init() {}
+  public init(networkRequest: NetworkRequest) {
+    self.networkRequest = networkRequest
+  }
   
+  private var networkRequest: NetworkRequest
   private let cachedImages = NSCache<NSURL, UIImage>()
   private var completionHandlers = [NSURL: [(UIImage) -> Void]]()
   
@@ -39,7 +42,7 @@ final class ImageCacher: ImageCache {
       completionHandlers[nsUrl] = [completion]
     }
     
-    NetworkRequest.requestWithEpemeral(url: url) { [weak self] (result) in
+     networkRequest.request(url: url) { [weak self] (result) in
       guard let self = self else { return }
       switch result {
       case .success(let data):
