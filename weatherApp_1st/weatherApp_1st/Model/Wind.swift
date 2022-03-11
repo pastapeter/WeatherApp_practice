@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct Wind: Codable {
+public struct Wind: Codable, Equatable {
   let speed: Double? //풍속
   let degree: Int? //풍향
   let gust: Double? //돌풍

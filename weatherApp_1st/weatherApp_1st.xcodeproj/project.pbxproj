@@ -56,7 +56,7 @@
 		28130FBB27A799C500A4BD5E /* APIInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28130FBA27A799C500A4BD5E /* APIInfo.swift */; };
 		28130FBE27A79BD300A4BD5E /* WeatherRemoteAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28130FBD27A79BD300A4BD5E /* WeatherRemoteAPI.swift */; };
 		2856E42A27D4867A009F0B6E /* WeatherMainViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2856E42927D4867A009F0B6E /* WeatherMainViewModelTests.swift */; };
-		2856E42D27D486E7009F0B6E /* MockCurrentWeatherRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2856E42C27D486E7009F0B6E /* MockCurrentWeatherRepository.swift */; };
+		2856E42D27D486E7009F0B6E /* FakeCurrentWeatherRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2856E42C27D486E7009F0B6E /* FakeCurrentWeatherRepository.swift */; };
 		2856E44727D791C7009F0B6E /* WeatherMainCellModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2856E44627D791C7009F0B6E /* WeatherMainCellModelTests.swift */; };
 		2856E44927D792D6009F0B6E /* WeatherDetailViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2856E44827D792D6009F0B6E /* WeatherDetailViewModelTests.swift */; };
 		289F4CC927DA444000AB8E52 /* FutureWeatherViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 289F4CC827DA444000AB8E52 /* FutureWeatherViewModelTests.swift */; };
@@ -67,6 +67,7 @@
 		289F4CD927DA540800AB8E52 /* NetworkRequestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 289F4CD827DA540800AB8E52 /* NetworkRequestTests.swift */; };
 		289F4CDC27DA608500AB8E52 /* GET_CurrentWeather.JSON in Resources */ = {isa = PBXBuildFile; fileRef = 289F4CDB27DA608500AB8E52 /* GET_CurrentWeather.JSON */; };
 		289F4CDF27DA60C900AB8E52 /* Data+JSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 289F4CDE27DA60C900AB8E52 /* Data+JSON.swift */; };
+		289F4CE327DB21F500AB8E52 /* MainWeatherRemoteAPITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 289F4CE227DB21F500AB8E52 /* MainWeatherRemoteAPITests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -140,7 +141,7 @@
 		28130FBA27A799C500A4BD5E /* APIInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIInfo.swift; sourceTree = "<group>"; };
 		28130FBD27A79BD300A4BD5E /* WeatherRemoteAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherRemoteAPI.swift; sourceTree = "<group>"; };
 		2856E42927D4867A009F0B6E /* WeatherMainViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherMainViewModelTests.swift; sourceTree = "<group>"; };
-		2856E42C27D486E7009F0B6E /* MockCurrentWeatherRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockCurrentWeatherRepository.swift; sourceTree = "<group>"; };
+		2856E42C27D486E7009F0B6E /* FakeCurrentWeatherRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeCurrentWeatherRepository.swift; sourceTree = "<group>"; };
 		2856E44627D791C7009F0B6E /* WeatherMainCellModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherMainCellModelTests.swift; sourceTree = "<group>"; };
 		2856E44827D792D6009F0B6E /* WeatherDetailViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherDetailViewModelTests.swift; sourceTree = "<group>"; };
 		289F4CC827DA444000AB8E52 /* FutureWeatherViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FutureWeatherViewModelTests.swift; sourceTree = "<group>"; };
@@ -151,6 +152,7 @@
 		289F4CD827DA540800AB8E52 /* NetworkRequestTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkRequestTests.swift; sourceTree = "<group>"; };
 		289F4CDB27DA608500AB8E52 /* GET_CurrentWeather.JSON */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = GET_CurrentWeather.JSON; sourceTree = "<group>"; };
 		289F4CDE27DA60C900AB8E52 /* Data+JSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+JSON.swift"; sourceTree = "<group>"; };
+		289F4CE227DB21F500AB8E52 /* MainWeatherRemoteAPITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainWeatherRemoteAPITests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -448,7 +450,7 @@
 		2856E42B27D486BE009F0B6E /* Mocks */ = {
 			isa = PBXGroup;
 			children = (
-				2856E42C27D486E7009F0B6E /* MockCurrentWeatherRepository.swift */,
+				2856E42C27D486E7009F0B6E /* FakeCurrentWeatherRepository.swift */,
 				289F4CCA27DA452900AB8E52 /* MockFutureWeatherRepository.swift */,
 				289F4CCF27DA46B800AB8E52 /* MockURLSession.swift */,
 			);
@@ -460,6 +462,7 @@
 			children = (
 				289F4CD427DA4C3100AB8E52 /* URLSessionProtocolTests.swift */,
 				289F4CD827DA540800AB8E52 /* NetworkRequestTests.swift */,
+				289F4CE227DB21F500AB8E52 /* MainWeatherRemoteAPITests.swift */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
@@ -654,7 +657,7 @@
 				28130F6927A6C1A200A4BD5E /* SceneDelegate.swift in Sources */,
 				28130F9727A6C5C700A4BD5E /* CityName.swift in Sources */,
 				28130FB827A7956700A4BD5E /* MainWeatherRemoteAPI.swift in Sources */,
-				2856E42D27D486E7009F0B6E /* MockCurrentWeatherRepository.swift in Sources */,
+				2856E42D27D486E7009F0B6E /* FakeCurrentWeatherRepository.swift in Sources */,
 				2800401327A7D450006AC450 /* WeatherDetailViewController.swift in Sources */,
 				28130F9C27A6CAD300A4BD5E /* UITableView+Extension.swift in Sources */,
 				2800400C27A7CA3A006AC450 /* NetworkRequest.swift in Sources */,
@@ -667,6 +670,7 @@
 			files = (
 				2856E42A27D4867A009F0B6E /* WeatherMainViewModelTests.swift in Sources */,
 				2856E44727D791C7009F0B6E /* WeatherMainCellModelTests.swift in Sources */,
+				289F4CE327DB21F500AB8E52 /* MainWeatherRemoteAPITests.swift in Sources */,
 				289F4CC927DA444000AB8E52 /* FutureWeatherViewModelTests.swift in Sources */,
 				289F4CD527DA4C3100AB8E52 /* URLSessionProtocolTests.swift in Sources */,
 				289F4CDF27DA60C900AB8E52 /* Data+JSON.swift in Sources */,

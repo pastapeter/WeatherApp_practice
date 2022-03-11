@@ -7,7 +7,11 @@
 
 import Foundation
 
-public struct CurrentWeather: Codable {
+public struct CurrentWeather: Codable, Equatable {
+  public static func == (lhs: CurrentWeather, rhs: CurrentWeather) -> Bool {
+    return lhs.weather == rhs.weather && lhs.main == lhs.main && lhs.wind == rhs.wind && lhs.id == rhs.id && lhs.name == rhs.name
+  }
+  
   let weather: [Weather]
   let main: MainWeatherInfo?
   let wind: Wind?

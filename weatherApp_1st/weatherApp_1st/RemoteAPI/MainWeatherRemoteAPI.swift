@@ -47,7 +47,7 @@ final class MainWeatherRemoteAPI: WeatherRemoteAPI  {
   private let networkCoder: NetworkCoding
   private let networkRequest: NetworkRequest
   
-  private func makeURL(with cityname: String, isCurrent: Bool) -> String {
+  func makeURL(with cityname: String, isCurrent: Bool) -> String {
     var currentParam = "weather"
     if isCurrent == false {
       currentParam = "forecast"
