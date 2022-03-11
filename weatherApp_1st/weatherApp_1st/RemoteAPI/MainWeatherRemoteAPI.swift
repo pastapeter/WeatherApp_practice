@@ -35,9 +35,9 @@ final class MainWeatherRemoteAPI: WeatherRemoteAPI  {
     }
   }
   
-  public init (coder: NetworkCoding) {
+  public init (coder: NetworkCoding, networkRequest: NetworkRequest = NetworkRequest(session: URLSession.shared)) {
     self.networkCoder = coder
-    self.networkRequest = NetworkRequest(session: URLSession.shared)
+    self.networkRequest = networkRequest
   }
   
   //MARK: - private
