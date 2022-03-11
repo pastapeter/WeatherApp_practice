@@ -11,7 +11,7 @@ final class MainWeatherRemoteAPI: WeatherRemoteAPI  {
   
   public func fetchCityCurrentWeather(in city: String, completion: @escaping(CurrentWeather) -> ()) {
     let url = makeURL(with: city, isCurrent: true)
-    _ = networkRequest.request(url: url) { [weak self] result in
+    networkRequest.request(url: url) { [weak self] result in
       guard let self = self else {return}
       switch result {
       case .success(let data):
@@ -24,7 +24,7 @@ final class MainWeatherRemoteAPI: WeatherRemoteAPI  {
   
   public func fetchFutureWeather(in city: String, completion: @escaping(FutureWeather)-> ()) {
     let url = makeURL(with: city, isCurrent: false)
-    _ = networkRequest.request(url: url) { [weak self] result in
+    networkRequest.request(url: url) { [weak self] result in
       guard let self = self else {return}
       switch result {
       case .success(let data):
