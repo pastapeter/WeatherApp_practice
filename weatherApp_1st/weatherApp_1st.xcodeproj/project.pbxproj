@@ -123,7 +123,6 @@
 		28130F6A27A6C1A200A4BD5E /* WeatherMainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherMainViewController.swift; sourceTree = "<group>"; };
 		28130F6F27A6C1A300A4BD5E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		28130F7227A6C1A300A4BD5E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		28130F7427A6C1A300A4BD5E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		28130F7927A6C1A300A4BD5E /* weatherApp_1stTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = weatherApp_1stTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		28130F8327A6C1A300A4BD5E /* weatherApp_1stUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = weatherApp_1stUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		28130F8727A6C1A300A4BD5E /* weatherApp_1stUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = weatherApp_1stUITests.swift; sourceTree = "<group>"; };
@@ -330,7 +329,6 @@
 				289F4CDA27DA605500AB8E52 /* Data */,
 				289F4CCC27DA45EF00AB8E52 /* Networking */,
 				2856E42B27D486BE009F0B6E /* Mocks */,
-				2856E42527D48628009F0B6E /* DataLayer */,
 				2856E42327D48610009F0B6E /* UILayer */,
 			);
 			path = weatherApp_1stTests;
@@ -364,7 +362,6 @@
 				28130F6827A6C1A200A4BD5E /* SceneDelegate.swift */,
 				28130F6F27A6C1A300A4BD5E /* Assets.xcassets */,
 				28130F7127A6C1A300A4BD5E /* LaunchScreen.storyboard */,
-				28130F7427A6C1A300A4BD5E /* Info.plist */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -413,13 +410,6 @@
 				2856E42627D4862E009F0B6E /* Main */,
 			);
 			path = UILayer;
-			sourceTree = "<group>";
-		};
-		2856E42527D48628009F0B6E /* DataLayer */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = DataLayer;
 			sourceTree = "<group>";
 		};
 		2856E42627D4862E009F0B6E /* Main */ = {
