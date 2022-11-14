@@ -3,7 +3,11 @@
 <img width="644" alt="스크린샷 2022-02-28 오후 9 57 57" src="https://user-images.githubusercontent.com/69891604/155987406-01585167-1a90-4c5e-8c2d-2bd3eaa0331b.png">
 
 
-## WeatehrApp의 목표(1차)
+## WeatherApp 버전
+- WeatherApp_First: Unit Test, MVVM, Repository Pattern
+- WeatherApp: Rxswift, MVVM, Repository Pattern
+
+## WeatherApp의 목표(1차)
 1. Dependency Container를 사용해서 의존성 주입하기 :white_check_mark:
 2. 의존성 역치를 통해서 Testable한 코드 작성하기 :white_check_mark:
 3. Repository Pattern 사용하기 :white_check_mark:
