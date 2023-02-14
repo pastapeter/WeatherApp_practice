@@ -16,7 +16,7 @@
 ## WeatherApp의 목표(2차)
 1. Rxswift으로 바꿔보기 :white_check_mark:
 2. Coordinator 적용하기(MVVM-C) 
-3. Test code 작성해보기
+3. Test code 작성해보기 :white_check_mark:
 
 
 ## WeatherApp의 목표(3차)
